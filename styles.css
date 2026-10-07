@@ -1,0 +1,307 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(-45deg, #0f0f0f, #1a0000, #330000, #000000);
+    background-size: 400% 400%;
+    animation: gradientMove 10s ease infinite;
+    color: white;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+
+/* Glass card effect */
+.card {
+    background: rgba(255, 0, 0, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 0, 0, 0.3);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+}
+
+/* Center login */
+.center-screen {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+h1 {
+    font-size: 50px;
+    color: #ff1a1a;
+    text-shadow: 0 0 25px red;
+}
+
+input {
+    padding: 12px;
+    width: 250px;
+    background: #1a1a1a;
+    border: 1px solid red;
+    border-radius: 8px;
+    color: white;
+}
+
+button {
+    padding: 12px 20px;
+    background: linear-gradient(45deg, red, darkred);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px red;
+}
+
+.hidden {
+    display: none;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+/* Progress bar */
+.progress-bar {
+    width: 100%;
+    background: #1a1a1a;
+    height: 20px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+#progress {
+    height: 100%;
+    background: linear-gradient(90deg, red, orange);
+    transition: 0.4s;
+}
+
+/* Workout list */
+li {
+    background: #1a1a1a;
+    margin: 10px 0;
+    padding: 15px;
+    border-left: 5px solid red;
+    border-radius: 8px;
+}
+
+/* Leaderboard */
+.leaderboard-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin: 5px 0;
+    background: #1a1a1a;
+    border-radius: 8px;
+}
+
+.rank-1 {
+    border-left: 5px solid gold;
+}
+
+.rank-2 {
+    border-left: 5px solid silver;
+}
+
+.rank-3 {
+    border-left: 5px solid bronze;
+}
+.quote-style {
+    text-align: center;
+    font-style: italic;
+    color: #ff4d4d;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px red;
+}
+.king-glow {
+    box-shadow: 0 0 20px red;
+}
+
+.queen-glow {
+    box-shadow: 0 0 20px hotpink;
+}
+.logout {
+    background: linear-gradient(45deg, #ff4d4d, #cc0000);
+}
+#splash {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: fadeOut 2.5s forwards;
+    animation-delay: 2s;
+}
+
+.splash-text {
+    font-size: 60px;
+    color: red;
+    text-shadow: 0 0 30px red;
+    animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; visibility: hidden; }
+}
+.badge {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: gold;
+    padding: 10px 20px;
+    border-radius: 15px;
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+    font-size: 1.2em;
+    opacity: 0.9;
+    z-index: 10000;
+    animation: popIn 0.5s ease-out;
+}
+
+@keyframes popIn {
+    from { transform: scale(0); opacity: 0; }
+    to { transform: scale(1); opacity: 0.9; }
+}
+#level-up-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 99999;
+    font-size: 3em;
+    color: white;
+    text-align: center;
+    transition: all 0.5s ease;
+}
+
+.hidden {
+    display: none;
+}
+
+.confetti {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    background: transparent;
+    background-image: url('https://i.imgur.com/3e9U0iV.png'); /* confetti image or use canvas */
+    background-repeat: repeat;
+    animation: confettiFall 3s linear forwards;
+}
+
+@keyframes confettiFall {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(100vh); }
+}
+
+.level-up-text {
+    margin-top: 50px;
+    font-size: 50px;
+    text-shadow: 0 0 20px yellow;
+    animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+}
+#level-up-overlay.hidden {
+    display: none;
+}
+.card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 15px;
+    margin: 20px 0;
+    border: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+.avatar-placeholder {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #ff0000, #800000);
+    border-radius: 50%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+}
+/* Efect de strălucire (Glow) pentru Rang */
+.glowing-text {
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 20px #800000;
+    animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 20px #800000;
+    }
+    to {
+        text-shadow: 0 0 10px #ff4d4d, 0 0 20px #ff4d4d, 0 0 30px #ff0000;
+        transform: scale(1.05);
+    }
+}
+
+/* Stil Footer și Animație Typing */
+.footer-signature {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-top: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+.typing-text {
+    display: inline-block;
+    overflow: hidden; /* Ascunde textul care nu e "scris" încă */
+    border-right: 2px solid #ff0000; /* Cursorul care clipește */
+    white-space: nowrap; 
+    margin: 0 auto;
+    letter-spacing: 1px;
+    font-family: 'Courier New', Courier, monospace; /* Font tip mașină de scris */
+    animation: 
+        typing 3.5s steps(30, end),
+        blink-caret 0.75s step-end infinite;
+}
+
+/* Animația de scriere */
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+/* Animația cursorului */
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: #ff0000 }
+}

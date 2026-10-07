@@ -1,0 +1,2788 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food for Champs - CHAMP FITNESS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(-45deg, #0f0f0f, #1a0000, #330000, #000000);
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease infinite;
+            color: white;
+            min-height: 100vh;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Navigation */
+        .nav-champ {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid rgba(255, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff1a1a;
+            text-shadow: 0 0 20px red;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(255, 0, 0, 0.2);
+            border-color: #ff1a1a;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: radial-gradient(circle at center, rgba(255,0,0,0.15) 0%, transparent 70%);
+        }
+
+        .hero-title {
+            font-size: 48px;
+            color: #ff1a1a;
+            text-shadow: 0 0 30px red;
+            margin-bottom: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: #ccc;
+            font-style: italic;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Target Input Section */
+        .target-section {
+            background: linear-gradient(135deg, rgba(255,0,0,0.1), rgba(0,255,0,0.05));
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .target-title {
+            color: #ff1a1a;
+            font-size: 28px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .target-subtitle {
+            color: #888;
+            margin-bottom: 25px;
+        }
+
+        .target-inputs {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .target-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .target-group label {
+            color: #ff4d4d;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .target-input {
+            width: 150px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .target-input:focus {
+            outline: none;
+            border-color: #00ff00;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+
+        .auto-generate-btn {
+            padding: 18px 40px;
+            background: linear-gradient(45deg, #00ff00, #00aa00);
+            border: none;
+            border-radius: 30px;
+            color: black;
+            font-weight: bold;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .auto-generate-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+        }
+
+        .target-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .target-stat {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .target-stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #00ff00;
+        }
+
+        .target-stat-label {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+        }
+
+        /* Filter System */
+        .filter-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .filter-title {
+            color: #ff1a1a;
+            margin-bottom: 15px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: linear-gradient(45deg, #ff0000, #800000);
+            border-color: #ff0000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .search-box::placeholder {
+            color: #666;
+        }
+
+        .selection-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .selection-count {
+            color: gold;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .clear-selection {
+            background: rgba(255, 0, 0, 0.3);
+            border: 1px solid #ff1a1a;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .clear-selection:hover {
+            background: rgba(255, 0, 0, 0.5);
+        }
+
+        /* Recipe Cards */
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 25px;
+        }
+
+        .recipe-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 0, 0, 0.3);
+        }
+
+        .recipe-card.selected {
+            border: 3px solid #00ff00;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+        }
+
+        .recipe-card.auto-selected {
+            border: 3px solid #0080ff;
+            box-shadow: 0 0 30px rgba(0, 128, 255, 0.3);
+        }
+
+        .recipe-selection {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 10;
+        }
+
+        .select-checkbox {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            accent-color: #00ff00;
+        }
+
+        .recipe-header {
+            background: linear-gradient(135deg, rgba(255,0,0,0.3), rgba(0,0,0,0.5));
+            padding: 20px;
+            position: relative;
+            padding-left: 60px;
+        }
+
+        .recipe-type {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .type-high-protein {
+            background: rgba(255, 215, 0, 0.3);
+            border: 1px solid gold;
+            color: gold;
+        }
+
+        .type-low-cal {
+            background: rgba(0, 255, 0, 0.2);
+            border: 1px solid #00ff00;
+            color: #00ff00;
+        }
+
+        .type-vegetarian {
+            background: rgba(0, 255, 127, 0.3);
+            border: 1px solid #00ff7f;
+            color: #00ff7f;
+        }
+
+        .type-breakfast {
+            background: rgba(255, 165, 0, 0.3);
+            border: 1px solid orange;
+            color: orange;
+        }
+
+        .type-mealprep {
+            background: rgba(138, 43, 226, 0.3);
+            border: 1px solid #8a2be2;
+            color: #da70d6;
+        }
+
+        .recipe-title {
+            font-size: 22px;
+            color: #ff1a1a;
+            margin-bottom: 10px;
+        }
+
+        .recipe-stats {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 13px;
+            color: #aaa;
+        }
+
+        .stat i {
+            color: #ff1a1a;
+        }
+
+        .recipe-content {
+            padding: 20px;
+        }
+
+        .recipe-section {
+            margin-bottom: 15px;
+        }
+
+        .recipe-section h4 {
+            color: #ff4d4d;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .recipe-section ul {
+            list-style: none;
+            padding-left: 0;
+            font-size: 13px;
+        }
+
+        .recipe-section li {
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .recipe-section li:before {
+            content: "•";
+            color: #ff1a1a;
+            font-weight: bold;
+        }
+
+        .recipe-actions {
+            display: flex;
+            gap: 10px;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .btn-details {
+            background: rgba(255, 0, 0, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .btn-details:hover {
+            background: rgba(255, 0, 0, 0.4);
+        }
+
+        .btn-favorite {
+            background: rgba(255, 215, 0, 0.2);
+            color: gold;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .btn-favorite:hover, .btn-favorite.active {
+            background: rgba(255, 215, 0, 0.4);
+        }
+
+        /* Selected Recipes Panel */
+        .selected-panel {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            border-top: 3px solid #00ff00;
+            padding: 20px;
+            z-index: 1000;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+            max-height: 50vh;
+            overflow-y: auto;
+        }
+
+        .selected-panel.active {
+            transform: translateY(0);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .panel-title {
+            color: #00ff00;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-panel {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .selected-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .selected-tag {
+            background: rgba(0, 255, 0, 0.2);
+            border: 1px solid #00ff00;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .remove-tag {
+            cursor: pointer;
+            color: #ff1a1a;
+        }
+
+        .panel-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .panel-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-generate {
+            background: linear-gradient(45deg, #00ff00, #00aa00);
+            color: black;
+        }
+
+        .btn-generate:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+        }
+
+        .btn-save {
+            background: rgba(255, 215, 0, 0.3);
+            border: 2px solid gold;
+            color: gold;
+        }
+
+        .toggle-panel {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00ff00, #00aa00);
+            border: none;
+            color: black;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 255, 0, 0.4);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .toggle-panel:hover {
+            transform: scale(1.1);
+        }
+
+        .toggle-panel .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff1a1a;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a0000, #0f0f0f);
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            border-radius: 20px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, rgba(255,0,0,0.3), rgba(0,0,0,0.5));
+            padding: 30px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .nutrition-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .nutrition-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .nutrition-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff1a1a;
+        }
+
+        .nutrition-label {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        /* Meal Plan Result */
+        .meal-plan-result {
+            background: rgba(0, 255, 0, 0.05);
+            border: 2px dashed rgba(0, 255, 0, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .plan-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .plan-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .plan-stat {
+            text-align: center;
+        }
+
+        .plan-stat-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #00ff00;
+        }
+
+        .plan-stat-label {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .plan-accuracy {
+            background: rgba(0, 128, 255, 0.1);
+            border: 1px solid rgba(0, 128, 255, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .accuracy-bar {
+            height: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .accuracy-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff00, #0080ff);
+            transition: width 0.5s ease;
+        }
+
+        .plan-day {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ff1a1a;
+        }
+
+        .plan-day h4 {
+            color: #ff1a1a;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .plan-meal {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .plan-meal:last-child {
+            border-bottom: none;
+        }
+
+        .meal-name {
+            font-weight: 500;
+        }
+
+        .meal-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 14px;
+        }
+
+        .meal-cal {
+            color: #ff1a1a;
+        }
+
+        .meal-protein {
+            color: #ffd700;
+        }
+
+        .day-total {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid rgba(255,0,0,0.2);
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            color: #00ff00;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 36px; }
+            .recipe-grid { grid-template-columns: 1fr; }
+            .nutrition-grid { grid-template-columns: repeat(2, 1fr); }
+            .nav-links { display: none; }
+            .target-inputs { flex-direction: column; align-items: center; }
+            .plan-stats { gap: 20px; }
+        }
+    
+        /* Tab System */
+        .tabs-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 15px 30px;
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background: linear-gradient(45deg, #ff0000, #800000);
+            border-color: #ff0000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Gym Cards */
+        .gym-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+        }
+
+        .gym-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 20px;
+            padding: 25px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gym-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, #ff0000, #800000);
+        }
+
+        .gym-card:hover {
+            transform: translateX(10px);
+            box-shadow: -10px 0 30px rgba(255, 0, 0, 0.2);
+        }
+
+        .gym-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+        }
+
+        .gym-name {
+            font-size: 28px;
+            color: #ff1a1a;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+
+        .gym-rating {
+            background: rgba(255, 215, 0, 0.2);
+            border: 1px solid gold;
+            color: gold;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .gym-info {
+            margin-bottom: 15px;
+        }
+
+        .gym-info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: #ccc;
+        }
+
+        .gym-info-item i {
+            color: #ff1a1a;
+            width: 20px;
+        }
+
+        .gym-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .feature-tag {
+            background: rgba(255, 0, 0, 0.2);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .map-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #ff0000, #800000);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .map-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+        }
+
+        /* Workout Links Section */
+        .workout-channels {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .channel-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .channel-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.2);
+            border-color: #ff1a1a;
+        }
+
+        .channel-icon {
+            font-size: 50px;
+            color: #ff1a1a;
+            margin-bottom: 15px;
+        }
+
+        .channel-name {
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .channel-desc {
+            color: #aaa;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .channel-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .channel-tag {
+            background: rgba(255, 0, 0, 0.2);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+
+        .channel-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #ff0000, #800000);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .channel-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+        }
+
+        /* Quiz Styles */
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .quiz-progress {
+            background: rgba(0, 0, 0, 0.5);
+            height: 10px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .quiz-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ff0000, #ff6600);
+            transition: width 0.5s ease;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .question-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        .question-number {
+            color: #ff1a1a;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 24px;
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+
+        .answers-grid {
+            display: grid;
+            gap: 15px;
+        }
+
+        .answer-btn {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 0, 0, 0.2);
+            border-radius: 15px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .answer-btn:hover {
+            background: rgba(255, 0, 0, 0.1);
+            border-color: #ff1a1a;
+            transform: translateX(10px);
+        }
+
+        .answer-btn.correct {
+            background: rgba(0, 255, 0, 0.2);
+            border-color: #00ff00;
+        }
+
+        .answer-btn.wrong {
+            background: rgba(255, 0, 0, 0.2);
+            border-color: #ff0000;
+        }
+
+        .answer-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .answer-letter {
+            background: rgba(255, 0, 0, 0.3);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .quiz-results {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(#ff1a1a var(--score-deg), rgba(255,255,255,0.1) 0);
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .score-circle::before {
+            content: '';
+            width: 160px;
+            height: 160px;
+            background: #0f0f0f;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .score-text {
+            position: relative;
+            z-index: 1;
+            font-size: 48px;
+            font-weight: bold;
+            color: #ff1a1a;
+        }
+
+        .result-message {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .result-message.champ {
+            color: gold;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .result-message.good {
+            color: #ff1a1a;
+        }
+
+        .result-message.train {
+            color: #888;
+        }
+
+        /* Card utility class */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
+            border-color: rgba(255, 0, 0, 0.4);
+        }
+</style>
+<base target="_blank">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav-champ">
+        <a href="index.html" class="nav-logo">
+            <i class="fas fa-dumbbell"></i>
+            CHAMP FITNESS
+        </a>
+        <div class="nav-links">
+            <a href="index.html"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="profil.html"><i class="fas fa-user"></i> Profil</a>
+            <a href="cunostinte.html"><i class="fas fa-book"></i> Cunoștințe</a>
+            <a href="food.html" class="active"><i class="fas fa-utensils"></i> Food</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1 class="hero-title">FOOD FOR CHAMPS 🍗</h1>
+        <p class="hero-subtitle">"Setează-ți targetul, noi generăm planul"</p>
+    </section>
+
+    
+    <div class="container">
+        <!-- Tab Navigation -->
+        <div class="tabs-nav">
+            <button class="tab-btn active" onclick="openTab('recipes')">
+                <i class="fas fa-utensils"></i> Rețete & Plan
+            </button>
+            <button class="tab-btn" onclick="openTab('workouts')">
+                <i class="fas fa-video"></i> Antrenamente Acasă
+            </button>
+            <button class="tab-btn" onclick="openTab('gyms')">
+                <i class="fas fa-map-marker-alt"></i> Săli Arad
+            </button>
+            <button class="tab-btn" onclick="openTab('quiz')">
+                <i class="fas fa-brain"></i> Quiz Istoric
+            </button>
+        </div>
+
+        <!-- Recipes Tab (Original Content) -->
+        <div id="recipes" class="tab-content active">
+
+        <!-- Target Input Section -->
+        <div class="target-section">
+            <div class="target-title">
+                <i class="fas fa-bullseye"></i> Targetul Tău Zilnic
+            </div>
+            <p class="target-subtitle">
+                Introdu câte calorii trebuie să consumi zilnic (din calculatorul tău sau calculează aproximativ)
+            </p>
+            
+            <div class="target-inputs">
+                <div class="target-group">
+                    <label><i class="fas fa-fire"></i> Calorii</label>
+                    <input type="number" class="target-input" id="targetCalories" placeholder="2500" value="2500" onchange="updateMacros()">
+                </div>
+                <div class="target-group">
+                    <label><i class="fas fa-drumstick-bite"></i> Proteine (%)</label>
+                    <input type="number" class="target-input" id="proteinPercent" placeholder="30" value="30" style="width: 100px;" onchange="updateMacros()">
+                </div>
+                <div class="target-group">
+                    <label><i class="fas fa-bread-slice"></i> Carbo (%)</label>
+                    <input type="number" class="target-input" id="carbsPercent" placeholder="40" value="40" style="width: 100px;" onchange="updateMacros()">
+                </div>
+                <div class="target-group">
+                    <label><i class="fas fa-cheese"></i> Grăsimi (%)</label>
+                    <input type="number" class="target-input" id="fatsPercent" placeholder="30" value="30" style="width: 100px;" onchange="updateMacros()">
+                </div>
+            </div>
+
+            <div class="target-info" id="macroDisplay">
+                <div class="target-stat">
+                    <div class="target-stat-value" id="proteinGrams">188g</div>
+                    <div class="target-stat-label">Proteină</div>
+                </div>
+                <div class="target-stat">
+                    <div class="target-stat-value" id="carbsGrams">250g</div>
+                    <div class="target-stat-label">Carbohidrați</div>
+                </div>
+                <div class="target-stat">
+                    <div class="target-stat-value" id="fatsGrams">83g</div>
+                    <div class="target-stat-label">Grăsimi</div>
+                </div>
+                <div class="target-stat">
+                    <div class="target-stat-value" id="mealsCount">4</div>
+                    <div class="target-stat-label">Mese/Zi</div>
+                </div>
+            </div>
+
+            <button class="auto-generate-btn" onclick="autoGeneratePlan()">
+                <i class="fas fa-magic"></i> Generează Planul Automat
+            </button>
+            <p style="margin-top: 15px; color: #888; font-size: 14px;">
+                <i class="fas fa-robot"></i> Algoritmul selectează automat cele mai bune rețete pentru targetul tău
+            </p>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <div class="filter-title">
+                <i class="fas fa-utensils"></i> Alege Manual (Opțional)
+            </div>
+            
+            <input type="text" class="search-box" id="searchInput" placeholder="Caută rețete... (ex: pui, ouă, somon)" onkeyup="filterRecipes()">
+            
+            <div class="filter-grid">
+                <button class="filter-btn active" onclick="setFilter('all')">
+                    <i class="fas fa-th-large"></i> Toate (16)
+                </button>
+                <button class="filter-btn" onclick="setFilter('high-protein')">
+                    <i class="fas fa-dumbbell"></i> High Protein
+                </button>
+                <button class="filter-btn" onclick="setFilter('low-calorie')">
+                    <i class="fas fa-leaf"></i> Low Calorie
+                </button>
+                <button class="filter-btn" onclick="setFilter('breakfast')">
+                    <i class="fas fa-sun"></i> Mic Dejun
+                </button>
+                <button class="filter-btn" onclick="setFilter('mealprep')">
+                    <i class="fas fa-clock"></i> Meal Prep
+                </button>
+                <button class="filter-btn" onclick="setFilter('vegetarian')">
+                    <i class="fas fa-seedling"></i> Vegetarian
+                </button>
+                <button class="filter-btn" onclick="setFilter('favorites')">
+                    <i class="fas fa-star"></i> Favorite
+                </button>
+            </div>
+
+            <div class="selection-info" id="selectionInfo">
+                <span class="selection-count">
+                    <i class="fas fa-check-circle"></i> <span id="selectedCount">0</span> rețete selectate manual
+                </span>
+                <button class="clear-selection" onclick="clearSelection()">
+                    <i class="fas fa-trash"></i> Golește selecția
+                </button>
+            </div>
+        </div>
+
+        <!-- Recipe Grid -->
+        <div class="recipe-grid" id="recipeGrid">
+            <!-- Recipes will be loaded here by JavaScript -->
+        </div>
+
+        <!-- Generated Plan Container -->
+        <div id="generatedPlanContainer"></div>
+    </div>
+
+    <!-- Selected Recipes Panel -->
+    <button class="toggle-panel" onclick="togglePanel()">
+        <i class="fas fa-shopping-basket"></i>
+        <span class="badge" id="panelBadge">0</span>
+    </button>
+
+    <div class="selected-panel" id="selectedPanel">
+        <div class="panel-header">
+            <div class="panel-title">
+                <i class="fas fa-clipboard-list"></i> Rețetele Tale Selectate
+            </div>
+            <button class="close-panel" onclick="togglePanel()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="selected-list" id="selectedList">
+            <!-- Selected recipes will appear here -->
+        </div>
+        <div class="panel-actions">
+            <button class="panel-btn btn-generate" onclick="generateManualPlan()">
+                <i class="fas fa-magic"></i> Generează din Selecție
+            </button>
+            <button class="panel-btn btn-save" onclick="saveSelection()">
+                <i class="fas fa-save"></i> Salvează Selecția
+            </button>
+        </div>
+    </div>
+
+    <!-- Recipe Detail Modal -->
+    <div class="modal" id="recipeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-modal" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h2 id="modalTitle">Titlu Rețetă</h2>
+                <div class="recipe-stats" id="modalStats"></div>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Content loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    
+        </div>
+
+        <!-- Workouts at Home Tab -->
+        <div id="workouts" class="tab-content">
+            <h2 style="text-align: center; margin-bottom: 10px; color: #ff1a1a;">
+                <i class="fas fa-home"></i> Antrenamente Acasă
+            </h2>
+            <p style="text-align: center; color: #888; margin-bottom: 40px;">
+                Cele mai bune canale YouTube pentru antrenamente fără echipament 🎥
+            </p>
+
+            <div class="workout-channels">
+                <!-- Fitness Blender -->
+                <div class="channel-card">
+                    <div class="channel-icon"><i class="fas fa-play-circle"></i></div>
+                    <h3 class="channel-name">Fitness Blender</h3>
+                    <p class="channel-desc">
+                        Peste 600 de antrenamente gratuite pentru toate nivelurile. 
+                        De la HIIT la yoga, găsești tot ce ai nevoie.
+                    </p>
+                    <div class="channel-tags">
+                        <span class="channel-tag">HIIT</span>
+                        <span class="channel-tag">Forță</span>
+                        <span class="channel-tag">Yoga</span>
+                        <span class="channel-tag">Pilates</span>
+                    </div>
+                    <a href="https://www.youtube.com/@FitnessBlender" target="_blank" class="channel-link">
+                        <i class="fab fa-youtube"></i> Vezi Canalul
+                    </a>
+                </div>
+
+                <!-- THENX -->
+                <div class="channel-card">
+                    <div class="channel-icon"><i class="fas fa-fist-raised"></i></div>
+                    <h3 class="channel-name">THENX</h3>
+                    <p class="channel-desc">
+                        Calisthenics avansat de la Chris Heria. 
+                        Ideal pentru cei care vor să învețe elemente spectaculoase.
+                    </p>
+                    <div class="channel-tags">
+                        <span class="channel-tag">Calisthenics</span>
+                        <span class="channel-tag">Street Workout</span>
+                        <span class="channel-tag">Skills</span>
+                        <span class="channel-tag">Advanced</span>
+                    </div>
+                    <a href="https://www.youtube.com/@THENX" target="_blank" class="channel-link">
+                        <i class="fab fa-youtube"></i> Vezi Canalul
+                    </a>
+                </div>
+
+                <!-- The Body Coach -->
+                <div class="channel-card">
+                    <div class="channel-icon"><i class="fas fa-fire-alt"></i></div>
+                    <h3 class="channel-name">The Body Coach TV</h3>
+                    <p class="channel-desc">
+                        Joe Wicks aduce antrenamente HIIT de 15-30 minute 
+                        perfecte pentru începători și intermediari.
+                    </p>
+                    <div class="channel-tags">
+                        <span class="channel-tag">HIIT</span>
+                        <span class="channel-tag">Cardio</span>
+                        <span class="channel-tag">Începători</span>
+                        <span class="channel-tag">Family</span>
+                    </div>
+                    <a href="https://www.youtube.com/@TheBodyCoachTV" target="_blank" class="channel-link">
+                        <i class="fab fa-youtube"></i> Vezi Canalul
+                    </a>
+                </div>
+
+                <!-- Athlean-X -->
+                <div class="channel-card">
+                    <div class="channel-icon"><i class="fas fa-dumbbell"></i></div>
+                    <h3 class="channel-name">ATHLEAN-X</h3>
+                    <p class="channel-desc">
+                        Jeff Cavaliere - expert în biomecanică. 
+                        Exerciții eficiente bazate pe știință.
+                    </p>
+                    <div class="channel-tags">
+                        <span class="channel-tag">Știință</span>
+                        <span class="channel-tag">Forță</span>
+                        <span class="channel-tag">Reabilitare</span>
+                        <span class="channel-tag">Educație</span>
+                    </div>
+                    <a href="https://www.youtube.com/@athleanx" target="_blank" class="channel-link">
+                        <i class="fab fa-youtube"></i> Vezi Canalul
+                    </a>
+                </div>
+
+                <!-- Yoga with Adriene -->
+                <div class="channel-card">
+                    <div class="channel-icon"><i class="fas fa-spa"></i></div>
+                    <h3 class="channel-name">Yoga with Adriene</h3>
+                    <p class="channel-desc">
+                        Yoga pentru toți. Perfect pentru recuperare, 
+                        flexibilitate și echilibru mental.
+                    </p>
+                    <div class="channel-tags">
+                        <span class="channel-tag">Yoga</span>
+                        <span class="channel-tag">Stretching</span>
+                        <span class="channel-tag">Mindfulness</span>
+                        <span class="channel-tag">Recovery</span>
+                    </div>
+                    <a href="https://www.youtube.com/@yogawithadriene" target="_blank" class="channel-link">
+                        <i class="fab fa-youtube"></i> Vezi Canalul
+                    </a>
+                </div>
+
+                <!-- Chloe Ting -->
+                <div class="channel-card">
+                    <div class="channel-icon"><i class="fas fa-stopwatch"></i></div>
+                    <h3 class="channel-name">Chloe Ting</h3>
+                    <p class="channel-desc">
+                        Programe de 2 săptămâni cu rezultate vizibile. 
+                        Foarte popular pentru abdomen și full body.
+                    </p>
+                    <div class="channel-tags">
+                        <span class="channel-tag">Challenges</span>
+                        <span class="channel-tag">Abs</span>
+                        <span class="channel-tag">Full Body</span>
+                        <span class="channel-tag">Intens</span>
+                    </div>
+                    <a href="https://www.youtube.com/@ChloeTing" target="_blank" class="channel-link">
+                        <i class="fab fa-youtube"></i> Vezi Canalul
+                    </a>
+                </div>
+            </div>
+
+            <!-- Recomandări -->
+            <div class="card" style="margin-top: 40px;">
+                <h3 style="color: #ff1a1a; margin-bottom: 20px;">
+                    <i class="fas fa-lightbulb"></i> Cum să începi?
+                </h3>
+                <ul style="list-style: none; line-height: 2;">
+                    <li><i class="fas fa-check" style="color: #ff1a1a; margin-right: 10px;"></i> 
+                        <strong>Începători:</strong> Începe cu The Body Coach TV sau Fitness Blender (nivel începător)
+                    </li>
+                    <li><i class="fas fa-check" style="color: #ff1a1a; margin-right: 10px;"></i> 
+                        <strong>Intermediari:</strong> Fitness Blender HIIT sau Chloe Ting Challenges
+                    </li>
+                    <li><i class="fas fa-check" style="color: #ff1a1a; margin-right: 10px;"></i> 
+                        <strong>Avansați:</strong> THENX pentru calisthenics sau ATHLEAN-X pentru forță
+                    </li>
+                    <li><i class="fas fa-check" style="color: #ff1a1a; margin-right: 10px;"></i> 
+                        <strong>Recuperare:</strong> Yoga with Adriene în zilele de odihnă
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Gyms Tab -->
+        <div id="gyms" class="tab-content">
+            <h2 style="text-align: center; margin-bottom: 30px; color: #ff1a1a;">
+                <i class="fas fa-dumbbell"></i> Săli de Fitness în Arad
+            </h2>
+            <p style="text-align: center; color: #888; margin-bottom: 40px;">
+                Locații recomandate pentru a-ți atinge obiectivele 💪
+            </p>
+
+            <div class="gym-grid">
+                <!-- 18 Gym -->
+                <div class="gym-card">
+                    <div class="gym-header">
+                        <div>
+                            <div class="gym-name">18 GYM</div>
+                            <div style="color: #888; font-size: 14px;">The Home of Champions</div>
+                        </div>
+                        <div class="gym-rating">⭐ 4.9</div>
+                    </div>
+                    <div class="gym-info">
+                        <div class="gym-info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Strada 18, Nr. 1-3, Arad (lângă Atrium Mall)</span>
+                        </div>
+                        <div class="gym-info-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Luni-Vineri: 06:00 - 23:00 | Weekend: 08:00 - 20:00</span>
+                        </div>
+                        <div class="gym-info-item">
+                            <i class="fas fa-phone"></i>
+                            <span>0722 222 222</span>
+                        </div>
+                        <div class="gym-info-item">
+                            <i class="fas fa-euro-sign"></i>
+                            <span>Abonament: 150-200 RON/lună</span>
+                        </div>
+                    </div>
+                    <div class="gym-features">
+                        <span class="feature-tag">💪 Hammer Strength</span>
+                        <span class="feature-tag">🏃 Cardio Zone</span>
+                        <span class="feature-tag">🥊 CrossFit Box</span>
+                        <span class="feature-tag">🧘 Sala de aerobic</span>
+                        <span class="feature-tag">🚿 Sauna</span>
+                        <span class="feature-tag">🅿️ Parcare</span>
+                    </div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=18+GYM+Arad" target="_blank" class="map-link">
+                        <i class="fas fa-location-arrow"></i> Vezi pe Hartă
+                    </a>
+                </div>
+
+                <!-- Kratos Gym -->
+                <div class="gym-card">
+                    <div class="gym-header">
+                        <div>
+                            <div class="gym-name">KRATOS GYM</div>
+                            <div style="color: #888; font-size: 14px;">Unleash Your Power</div>
+                        </div>
+                        <div class="gym-rating">⭐ 4.8</div>
+                    </div>
+                    <div class="gym-info">
+                        <div class="gym-info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Bulevardul Revoluției, Nr. 45, Arad (zona UTA)</span>
+                        </div>
+                        <div class="gym-info-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Luni-Vineri: 05:30 - 22:30 | Weekend: 07:00 - 21:00</span>
+                        </div>
+                        <div class="gym-info-item">
+                            <i class="fas fa-phone"></i>
+                            <span>0723 333 333</span>
+                        </div>
+                        <div class="gym-info-item">
+                            <i class="fas fa-euro-sign"></i>
+                            <span>Abonament: 130-180 RON/lună</span>
+                        </div>
+                    </div>
+                    <div class="gym-features">
+                        <span class="feature-tag">🏋️ Powerlifting Zone</span>
+                        <span class="feature-tag">🤸 Functional Area</span>
+                        <span class="feature-tag">🥋 MMA Cage</span>
+                        <span class="feature-tag">⚡ Electro-stimulare</span>
+                        <span class="feature-tag">👤 Antrenori personali</span>
+                        <span class="feature-tag">💊 Suplimente la recepție</span>
+                    </div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Kratos+Gym+Arad" target="_blank" class="map-link">
+                        <i class="fas fa-location-arrow"></i> Vezi pe Hartă
+                    </a>
+                </div>
+
+                <!-- Gold Gym Arad -->
+                <div class="gym-card">
+                    <div class="gym-header">
+                        <div>
+                            <div class="gym-name">GOLD GYM</div>
+                            <div style="color: #888; font-size: 14px;">Serious Fitness</div>
+                        </div>
+                        <div class="gym-rating">⭐ 4.7</div>
+                    </div>
+                    <div class="gym-info">
+                        <div class="gym-info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Calea Aurel Vlaicu, Nr. 128, Arad (zona Micălaca)</span>
+                        </div>
+                        <div class="gym-info-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Luni-Duminică: 06:00 - 22:00</span>
+                        </div>
+                        <div class="gym-info-item">
+                            <i class="fas fa-phone"></i>
+                            <span>0724 444 444</span>
+                        </div>
+                        <div class="gym-info-item">
+                            <i class="fas fa-euro-sign"></i>
+                            <span>Abonament: 120-160 RON/lună</span>
+                        </div>
+                    </div>
+                    <div class="gym-features">
+                        <span class="feature-tag">🏆 Echipamente Technogym</span>
+                        <span class="feature-tag">🏊 Piscină semi-olimpică</span>
+                        <span class="feature-tag">🧖 SPA & Jacuzzi</span>
+                        <span class="feature-tag">🎾 Terenuri tenis</span>
+                        <span class="feature-tag">👶 Kids Zone</span>
+                        <span class="feature-tag">🥤 Protein Bar</span>
+                    </div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Gold+Gym+Arad" target="_blank" class="map-link">
+                        <i class="fas fa-location-arrow"></i> Vezi pe Hartă
+                    </a>
+                </div>
+
+                <!-- Oxygen Gym -->
+                <div class="gym-card">
+                    <div class="gym-header">
+                        <div>
+                            <div class="gym-name">OXYGEN GYM</div>
+                            <div style="color: #888; font-size: 14px;">Breathe Fitness</div>
+                        </div>
+                        <div class="gym-rating">⭐ 4.6</div>
+                    </div>
+                    <div class="gym-info">
+                        <div class="gym-info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Strada Corneliu Coposu, Nr. 8, Arad (centru)</span>
+                        </div>
+                        <div class="gym-info-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Luni-Vineri: 07:00 - 21:00 | Weekend: 08:00 - 18:00</span>
+                        </div>
+                        <div class="gym-info-item">
+                            <i class="fas fa-phone"></i>
+                            <span>0725 555 555</span>
+                        </div>
+                        <div class="gym-info-item">
+                            <i class="fas fa-euro-sign"></i>
+                            <span>Abonament: 100-140 RON/lună</span>
+                        </div>
+                    </div>
+                    <div class="gym-features">
+                        <span class="feature-tag">🎯 TRX Training</span>
+                        <span class="feature-tag">🧘 Yoga Studio</span>
+                        <span class="feature-tag">🥊 Kickboxing</span>
+                        <span class="feature-tag">📊 Analiză compoziție corporală</span>
+                        <span class="feature-tag">🤝 Community Events</span>
+                    </div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Oxygen+Gym+Arad" target="_blank" class="map-link">
+                        <i class="fas fa-location-arrow"></i> Vezi pe Hartă
+                    </a>
+                </div>
+            </div>
+
+            <!-- Comparison Table -->
+            <div class="card" style="margin-top: 40px;">
+                <h3 style="color: #ff1a1a; margin-bottom: 20px;"><i class="fas fa-balance-scale"></i> Comparație Rapidă</h3>
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid rgba(255,0,0,0.3);">
+                                <th style="padding: 15px; text-align: left; color: #ff4d4d;">Sală</th>
+                                <th style="padding: 15px; text-align: center; color: #ff4d4d;">Preț/lună</th>
+                                <th style="padding: 15px; text-align: center; color: #ff4d4d;">Program</th>
+                                <th style="padding: 15px; text-align: center; color: #ff4d4d;">Facilități Extra</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                <td style="padding: 15px; font-weight: bold;">18 GYM</td>
+                                <td style="padding: 15px; text-align: center;">150-200 RON</td>
+                                <td style="padding: 15px; text-align: center;">06:00-23:00</td>
+                                <td style="padding: 15px; text-align: center;">Sauna, CrossFit</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                <td style="padding: 15px; font-weight: bold;">Kratos Gym</td>
+                                <td style="padding: 15px; text-align: center;">130-180 RON</td>
+                                <td style="padding: 15px; text-align: center;">05:30-22:30</td>
+                                <td style="padding: 15px; text-align: center;">MMA, Powerlifting</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                <td style="padding: 15px; font-weight: bold;">Gold Gym</td>
+                                <td style="padding: 15px; text-align: center;">120-160 RON</td>
+                                <td style="padding: 15px; text-align: center;">06:00-22:00</td>
+                                <td style="padding: 15px; text-align: center;">Piscină, SPA</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 15px; font-weight: bold;">Oxygen Gym</td>
+                                <td style="padding: 15px; text-align: center;">100-140 RON</td>
+                                <td style="padding: 15px; text-align: center;">07:00-21:00</td>
+                                <td style="padding: 15px; text-align: center;">Yoga, TRX</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Tab -->
+        <div id="quiz" class="tab-content">
+            <div class="quiz-container">
+                <h2 style="text-align: center; margin-bottom: 30px; color: #ff1a1a;">
+                    <i class="fas fa-trophy"></i> Quiz: Istoria Fitness-ului
+                </h2>
+                <p style="text-align: center; color: #888; margin-bottom: 30px;">
+                    Testează-ți cunoștințele despre legendele culturismului! 🏆
+                </p>
+
+                <div id="quiz-interface">
+                    <div class="quiz-progress">
+                        <div class="quiz-progress-bar" id="progress-bar" style="width: 0%"></div>
+                    </div>
+
+                    <div id="question-container">
+                        <!-- Questions will be loaded here -->
+                    </div>
+                </div>
+
+                <div id="quiz-results" class="quiz-results" style="display: none;">
+                    <div class="score-circle" id="score-circle">
+                        <div class="score-text" id="score-text">0/10</div>
+                    </div>
+                    <div class="result-message" id="result-message"></div>
+                    <p id="result-details" style="color: #888; margin-bottom: 30px;"></p>
+                    <button class="tab-btn" onclick="restartQuiz()" style="border: none;">
+                        <i class="fas fa-redo"></i> Încearcă Din Nou
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+<footer style="text-align: center; padding: 40px 20px; background: rgba(0, 0, 0, 0.5); margin-top: 50px; border-top: 1px solid rgba(255, 0, 0, 0.2);">
+        <p style="display: inline-block; overflow: hidden; border-right: 2px solid #ff0000; white-space: nowrap; margin: 0 auto; letter-spacing: 1px; font-family: 'Courier New', Courier, monospace; animation: typing 3.5s steps(30, end), blink-caret 0.75s step-end infinite;">Developed with 🔥 by <strong>Groza Silviu</strong></p>
+        <p style="margin-top: 10px; color: #666; font-size: 14px;">&copy; 2026 CHAMP FITNESS. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Complete Recipe Database (16 recipes)
+        const recipes = [
+            {
+                id: 1,
+                title: "Piept de Pui la Grătar",
+                type: "high-protein",
+                typeLabel: "High Protein",
+                calories: 350,
+                protein: 55,
+                carbs: 5,
+                fat: 8,
+                time: "25 min",
+                tags: ["high-protein", "low-carb", "lunch", "dinner"],
+                ingredients: ["250g piept de pui", "Ulei de măsline", "Sare, piper, paprika", "Usturoi", "Lămâie"],
+                instructions: ["Condimentează puiul", "Încinge tigaia grill", "Gătește 6-7 minute pe parte", "Adaugă usturoiul", "Stinge cu lămâie"],
+                tips: "Marinează peste noapte pentru savoare maximă."
+            },
+            {
+                id: 2,
+                title: "Omeletă cu 6 Albușuri",
+                type: "high-protein",
+                typeLabel: "High Protein",
+                calories: 280,
+                protein: 42,
+                carbs: 4,
+                fat: 10,
+                time: "10 min",
+                tags: ["high-protein", "breakfast", "quick"],
+                ingredients: ["6 albușuri + 2 gălbenușuri", "Spanac proaspăt", "Ciuperci", "Ulei de cocos", "Sare, piper"],
+                instructions: ["Bate ouăle", "Sotează legumele", "Toarnă ouăle", "Gătește 4-5 minute", "Împăturește"],
+                tips: "Adaugă brânză feta pentru extra proteină."
+            },
+            {
+                id: 3,
+                title: "Somon la Cuptor cu Sparanghel",
+                type: "low-cal",
+                typeLabel: "Low Calorie",
+                calories: 380,
+                protein: 40,
+                carbs: 8,
+                fat: 22,
+                time: "25 min",
+                tags: ["low-calorie", "omega-3", "dinner", "pescatarian"],
+                ingredients: ["200g file de somon", "Sparanghel", "Lămâie", "Ulei de măsline", "Mărar"],
+                instructions: ["Preîncălzește cuptorul", "Așază somonul", "Condimentează", "Adaugă sparanghel", "Coace 15-18 minute"],
+                tips: "Somonul sălbatic are mai mulți omega-3."
+            },
+            {
+                id: 4,
+                title: "Clătite Proteice cu Ovăz",
+                type: "high-protein",
+                typeLabel: "High Protein",
+                calories: 420,
+                protein: 38,
+                carbs: 45,
+                fat: 12,
+                time: "15 min",
+                tags: ["high-protein", "breakfast", "carbs"],
+                ingredients: ["50g ovăz", "1 banană", "2 ouă", "1 măsură whey", "Scorțișoară"],
+                instructions: ["Mixează în blender", "Încinge tigaia", "Toarnă compoziția", "Gătește 2-3 minute", "Servește cu fructe"],
+                tips: "Adaugă bicarbonat pentru textură pufoasă."
+            },
+            {
+                id: 5,
+                title: "Budincă de Ovăz Proteică",
+                type: "breakfast",
+                typeLabel: "Mic Dejun",
+                calories: 450,
+                protein: 35,
+                carbs: 48,
+                fat: 14,
+                time: "5 min + overnight",
+                tags: ["breakfast", "mealprep", "quick"],
+                ingredients: ["80g ovăz", "250ml lapte", "1 măsură whey", "Unt de arahide", "Semințe chia"],
+                instructions: ["Amestecă în borcan", "Refrigerează 4+ ore", "Adaugă fructe", "Încălzește opțional", "Servește"],
+                tips: "Prep 5 borcane duminica."
+            },
+            {
+                id: 6,
+                title: "Buddha Bowl cu Năut",
+                type: "vegetarian",
+                typeLabel: "Vegetarian",
+                calories: 420,
+                protein: 18,
+                carbs: 65,
+                fat: 12,
+                time: "20 min",
+                tags: ["vegetarian", "vegan", "fiber", "lunch"],
+                ingredients: ["150g năut", "Quinoa gătită", "Avocado", "Roșii cherry", "Sos tahini"],
+                instructions: ["Gătește quinoa", "Prăjește năutul", "Taie legumele", "Asamblează bolul", "Adaugă sos"],
+                tips: "Adaugă semințe de dovleac."
+            },
+            {
+                id: 7,
+                title: "Vită la Tigaie cu Legume",
+                type: "high-protein",
+                typeLabel: "High Protein",
+                calories: 480,
+                protein: 45,
+                carbs: 12,
+                fat: 28,
+                time: "20 min",
+                tags: ["high-protein", "iron", "dinner"],
+                ingredients: ["200g mușchi de vită", "Ardei gras", "Ceapă", "Sos de soia", "Usturoi, ghimbir"],
+                instructions: ["Taie vită fâșii", "Sotează carnea", "Sotează legumele", "Adaugă sosul", "Combină totul"],
+                tips: "Fierul se absoarbe mai bine cu vitamina C."
+            },
+            {
+                id: 8,
+                title: "Chilli con Carne Fit",
+                type: "high-protein",
+                typeLabel: "High Protein",
+                calories: 450,
+                protein: 35,
+                carbs: 42,
+                fat: 18,
+                time: "45 min",
+                tags: ["high-protein", "mealprep", "spicy", "dinner"],
+                ingredients: ["200g carne tocată", "Fasole roșie", "Roșii în bulion", "Ardei iute", "Orez basmati"],
+                instructions: ["Sotează ceapa", "Adaugă carnea", "Adaugă roșiile", "Fierbe 30 minute", "Servește cu orez"],
+                tips: "Se congelează perfect."
+            },
+            {
+                id: 9,
+                title: "Breakfast Burrito Proteic",
+                type: "breakfast",
+                typeLabel: "Mic Dejun",
+                calories: 525,
+                protein: 46,
+                carbs: 38,
+                fat: 24,
+                time: "10 min",
+                tags: ["breakfast", "high-protein", "mealprep"],
+                ingredients: ["2 ouă + 2 albușuri", "2 cârnași de pui", "Fasole coptă", "Tortilla protein", "Avocado"],
+                instructions: ["Prăjește cârnașii", "Adaugă ouăle", "Încălzește tortilla", "Umple și rulează", "Servește"],
+                tips: "Învelește în folie și congelează."
+            },
+            {
+                id: 10,
+                title: "Paste cu Ton",
+                type: "high-protein",
+                typeLabel: "High Protein",
+                calories: 568,
+                protein: 45,
+                carbs: 68,
+                fat: 16,
+                time: "15 min",
+                tags: ["high-protein", "pescatarian", "quick", "lunch"],
+                ingredients: ["100g paste integrale", "Ton în apă", "Maioneză light", "Roșii cherry", "Porumb"],
+                instructions: ["Fierbe pastele", "Amestecă tonul", "Taie legumele", "Combină totul", "Servește rece"],
+                tips: "Adaugă mazăre pentru fibre."
+            },
+            {
+                id: 11,
+                title: "Turkey Taco Salad Jars",
+                type: "mealprep",
+                typeLabel: "Meal Prep",
+                calories: 480,
+                protein: 42,
+                carbs: 35,
+                fat: 22,
+                time: "20 min",
+                tags: ["mealprep", "high-protein", "lunch"],
+                ingredients: ["200g curcan tocat", "Condimente taco", "Salată romană", "Porumb", "Fasole neagră"],
+                instructions: ["Sotează curcanul", "Prep borcanul", "Adaugă straturile", "Refrigerează", "Servește"],
+                tips: "Folosește borcane de 500ml."
+            },
+            {
+                id: 12,
+                title: "Shake Proteic Anabolic",
+                type: "high-protein",
+                typeLabel: "High Protein",
+                calories: 450,
+                protein: 50,
+                carbs: 35,
+                fat: 15,
+                time: "2 min",
+                tags: ["high-protein", "quick", "post-workout"],
+                ingredients: ["Lapte integral", "Unt de arahide", "Banana congelată", "Ovăz", "Whey protein"],
+                instructions: ["Adaugă în blender", "Mixează 30 sec", "Consumă imediat", "Sau păstrează 24h", "Băutură rece"],
+                tips: "Pentru slăbire: folosește apă."
+            },
+            {
+                id: 13,
+                title: "Salată de Ton cu Quinoa",
+                type: "low-cal",
+                typeLabel: "Low Calorie",
+                calories: 320,
+                protein: 35,
+                carbs: 28,
+                fat: 8,
+                time: "15 min",
+                tags: ["low-calorie", "pescatarian", "lunch"],
+                ingredients: ["Ton în apă", "Quinoa", "Roșii cherry", "Castraveți", "Lămâie"],
+                instructions: ["Gătește quinoa", "Scurge tonul", "Taie legumele", "Amestecă", "Condimentează"],
+                tips: "Prep quinoa la începutul săptămânii."
+            },
+            {
+                id: 14,
+                title: "Supă Cremă de Broccoli",
+                type: "vegetarian",
+                typeLabel: "Vegetarian",
+                calories: 220,
+                protein: 12,
+                carbs: 18,
+                fat: 14,
+                time: "30 min",
+                tags: ["vegetarian", "low-calorie", "fiber", "dinner"],
+                ingredients: ["Broccoli", "Ceapă, usturoi", "Supă de legume", "Smântână light", "Nucșoară"],
+                instructions: ["Sotează ceapa", "Adaugă broccoli", "Fierbe 15 min", "Mixează", "Adaugă smântâna"],
+                tips: "Servește cu crutoane integrale."
+            },
+            {
+                id: 15,
+                title: "Pui Teriyaki cu Orez",
+                type: "high-protein",
+                typeLabel: "High Protein",
+                calories: 520,
+                protein: 48,
+                carbs: 55,
+                fat: 12,
+                time: "25 min",
+                tags: ["high-protein", "dinner", "asian"],
+                ingredients: ["Piept de pui", "Orez basmati", "Sos teriyaki", "Legume asiatice", "Susan"],
+                instructions: ["Gătește orezul", "Taie puiul cuburi", "Sotează puiul", "Adaugă sosul", "Servește"],
+                tips: "Folosește sos fără zahăr."
+            },
+            {
+                id: 16,
+                title: "Tacos de Pește",
+                type: "low-cal",
+                typeLabel: "Low Calorie",
+                calories: 320,
+                protein: 28,
+                carbs: 30,
+                fat: 10,
+                time: "20 min",
+                tags: ["low-calorie", "pescatarian", "dinner"],
+                ingredients: ["File de cod", "Tortillas porumb", "Varză", "Sos iaurt", "Avocado"],
+                instructions: ["Condimentează peștele", "Coace 12 min", "Prep sosul", "Încălzește tortillas", "Asamblează"],
+                tips: "Adaugă jalapeño picant."
+            }
+        ];
+
+        // State
+        let selectedRecipes = new Set();
+        let autoSelectedRecipes = new Set();
+        let currentFilter = 'all';
+        let favorites = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderRecipes();
+            updateSelectionDisplay();
+            updateMacros();
+        });
+
+        // Update Macros Display
+        function updateMacros() {
+            const calories = parseInt(document.getElementById('targetCalories').value) || 2500;
+            const pPercent = parseInt(document.getElementById('proteinPercent').value) || 30;
+            const cPercent = parseInt(document.getElementById('carbsPercent').value) || 40;
+            const fPercent = parseInt(document.getElementById('fatsPercent').value) || 30;
+            
+            // Validate total = 100%
+            const total = pPercent + cPercent + fPercent;
+            if (total !== 100) {
+                // Auto-adjust to make 100
+            }
+            
+            const proteinGrams = Math.round((calories * pPercent / 100) / 4);
+            const carbsGrams = Math.round((calories * cPercent / 100) / 4);
+            const fatsGrams = Math.round((calories * fPercent / 100) / 9);
+            
+            document.getElementById('proteinGrams').textContent = proteinGrams + 'g';
+            document.getElementById('carbsGrams').textContent = carbsGrams + 'g';
+            document.getElementById('fatsGrams').textContent = fatsGrams + 'g';
+        }
+
+        // AUTO GENERATE PLAN - Main Algorithm
+        function autoGeneratePlan() {
+            const targetCalories = parseInt(document.getElementById('targetCalories').value) || 2500;
+            const targetProtein = parseInt(document.getElementById('proteinGrams').textContent) || 188;
+            const mealsPerDay = 4;
+            const targetCaloriesPerMeal = targetCalories / mealsPerDay;
+            const targetProteinPerMeal = targetProtein / mealsPerDay;
+            
+            // Clear previous selections
+            autoSelectedRecipes.clear();
+            selectedRecipes.clear();
+            
+            // Algorithm: Select best combination
+            const selected = [];
+            const usedIds = new Set();
+            
+            // Try to find optimal combination
+            for (let day = 0; day < 7; day++) {
+                const dayMeals = [];
+                let dayCalories = 0;
+                let dayProtein = 0;
+                
+                // Select 4 meals for this day
+                for (let meal = 0; meal < mealsPerDay; meal++) {
+                    let bestRecipe = null;
+                    let bestScore = -Infinity;
+                    
+                    recipes.forEach(recipe => {
+                        if (usedIds.has(recipe.id) && usedIds.size < recipes.length - 4) return;
+                        
+                        const calDiff = Math.abs(recipe.calories - targetCaloriesPerMeal);
+                        const proDiff = Math.abs(recipe.protein - targetProteinPerMeal);
+                        const score = 100 - (calDiff / 10) - (proDiff * 2);
+                        
+                        // Bonus for variety
+                        const varietyBonus = !dayMeals.some(m => m.id === recipe.id) ? 10 : 0;
+                        
+                        if (score + varietyBonus > bestScore) {
+                            bestScore = score + varietyBonus;
+                            bestRecipe = recipe;
+                        }
+                    });
+                    
+                    if (bestRecipe) {
+                        dayMeals.push(bestRecipe);
+                        dayCalories += bestRecipe.calories;
+                        dayProtein += bestRecipe.protein;
+                        usedIds.add(bestRecipe.id);
+                    }
+                }
+                
+                selected.push({
+                    day: day,
+                    meals: dayMeals,
+                    totalCal: dayCalories,
+                    totalPro: dayProtein
+                });
+            }
+            
+            // Store auto-selected for display
+            selected.forEach(day => {
+                day.meals.forEach(meal => autoSelectedRecipes.add(meal.id));
+            });
+            
+            // Render plan
+            renderAutoPlan(selected, targetCalories, targetProtein);
+            
+            // Update UI
+            renderRecipes();
+            updateSelectionDisplay();
+            
+            // Scroll to plan
+            document.getElementById('generatedPlanContainer').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Render Auto-Generated Plan
+        function renderAutoPlan(planData, targetCal, targetPro) {
+            const avgCal = Math.round(planData.reduce((sum, d) => sum + d.totalCal, 0) / 7);
+            const avgPro = Math.round(planData.reduce((sum, d) => sum + d.totalPro, 0) / 7);
+            const calAccuracy = Math.round(100 - Math.abs(avgCal - targetCal) / targetCal * 100);
+            const proAccuracy = Math.round(100 - Math.abs(avgPro - targetPro) / targetPro * 100);
+            
+            let html = `
+                <div class="meal-plan-result">
+                    <div class="plan-header">
+                        <h2 style="color: #00ff00; margin-bottom: 10px;">
+                            <i class="fas fa-robot"></i> Plan Generat Automat
+                        </h2>
+                        <p style="color: #888;">Optimizat pentru ${targetCal} kcal și ${targetPro}g proteină/zi</p>
+                        
+                        <div class="plan-stats">
+                            <div class="plan-stat">
+                                <div class="plan-stat-value">${avgCal}</div>
+                                <div class="plan-stat-label">kcal/zi (medie)</div>
+                            </div>
+                            <div class="plan-stat">
+                                <div class="plan-stat-value">${avgPro}g</div>
+                                <div class="plan-stat-label">proteină/zi</div>
+                            </div>
+                            <div class="plan-stat">
+                                <div class="plan-stat-value">${planData.length}</div>
+                                <div class="plan-stat-label">zile</div>
+                            </div>
+                        </div>
+                        
+                        <div class="plan-accuracy">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <span>Acuratețe Calorii: ${calAccuracy}%</span>
+                                <span>Acuratețe Proteină: ${proAccuracy}%</span>
+                            </div>
+                            <div class="accuracy-bar">
+                                <div class="accuracy-fill" style="width: ${(calAccuracy + proAccuracy) / 2}%"></div>
+                            </div>
+                        </div>
+                    </div>
+            `;
+            
+            const days = ['Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri', 'Sâmbătă', 'Duminică'];
+            
+            planData.forEach((day, idx) => {
+                const mealNames = ['Mic Dejun', 'Prânz', 'Gustare', 'Cină'];
+                html += `
+                    <div class="plan-day">
+                        <h4><i class="fas fa-calendar-day"></i> ${days[idx]}</h4>
+                        ${day.meals.map((meal, mIdx) => `
+                            <div class="plan-meal">
+                                <span class="meal-name"><strong>${mealNames[mIdx]}:</strong> ${meal.title}</span>
+                                <span class="meal-stats">
+                                    <span class="meal-cal"><i class="fas fa-fire"></i> ${meal.calories}</span>
+                                    <span class="meal-protein"><i class="fas fa-drumstick-bite"></i> ${meal.protein}g</span>
+                                </span>
+                            </div>
+                        `).join('')}
+                        <div class="day-total">
+                            <span>Total Zi:</span>
+                            <span>${day.totalCal} kcal | ${day.totalPro}g proteină</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += `
+                    <div style="text-align: center; margin-top: 30px;">
+                        <button class="action-btn btn-details" onclick="window.print()" style="padding: 15px 30px; margin-right: 10px;">
+                            <i class="fas fa-print"></i> Printează Planul
+                        </button>
+                        <button class="auto-generate-btn" onclick="autoGeneratePlan()" style="margin-top: 0;">
+                            <i class="fas fa-sync"></i> Regenerează
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('generatedPlanContainer').innerHTML = html;
+        }
+
+        // Render Recipes
+        function renderRecipes() {
+            const grid = document.getElementById('recipeGrid');
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            let filtered = recipes.filter(recipe => {
+                if (searchTerm && !recipe.title.toLowerCase().includes(searchTerm) && 
+                    !recipe.ingredients.some(i => i.toLowerCase().includes(searchTerm))) {
+                    return false;
+                }
+                
+                if (currentFilter === 'all') return true;
+                if (currentFilter === 'favorites') return favorites.includes(recipe.id);
+                return recipe.tags.includes(currentFilter);
+            });
+
+            grid.innerHTML = filtered.map(recipe => {
+                const isAuto = autoSelectedRecipes.has(recipe.id);
+                const isManual = selectedRecipes.has(recipe.id);
+                const isSelected = isAuto || isManual;
+                
+                return `
+                <div class="recipe-card ${isSelected ? 'selected' : ''} ${isAuto && !isManual ? 'auto-selected' : ''}" data-id="${recipe.id}">
+                    <div class="recipe-selection">
+                        <input type="checkbox" class="select-checkbox" 
+                               ${isSelected ? 'checked' : ''} 
+                               onchange="toggleRecipe(${recipe.id})">
+                    </div>
+                    <div class="recipe-header">
+                        <span class="recipe-type type-${recipe.type}">${recipe.typeLabel}</span>
+                        <h3 class="recipe-title">${recipe.title}</h3>
+                        <div class="recipe-stats">
+                            <span class="stat"><i class="fas fa-fire"></i> ${recipe.calories} kcal</span>
+                            <span class="stat"><i class="fas fa-drumstick-bite"></i> ${recipe.protein}g P</span>
+                            <span class="stat"><i class="fas fa-clock"></i> ${recipe.time}</span>
+                        </div>
+                    </div>
+                    <div class="recipe-content">
+                        <div class="recipe-section">
+                            <h4><i class="fas fa-shopping-basket"></i> Ingrediente principale</h4>
+                            <ul>
+                                ${recipe.ingredients.slice(0, 4).map(ing => `<li>${ing}</li>`).join('')}
+                                ${recipe.ingredients.length > 4 ? `<li style="color: #888;">... și încă ${recipe.ingredients.length - 4}</li>` : ''}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="recipe-actions">
+                        <button class="action-btn btn-details" onclick="showRecipeDetails(${recipe.id})">
+                            <i class="fas fa-eye"></i> Detalii
+                        </button>
+                        <button class="action-btn btn-favorite ${favorites.includes(recipe.id) ? 'active' : ''}" 
+                                onclick="toggleFavorite(${recipe.id})">
+                            <i class="fas fa-star"></i> ${favorites.includes(recipe.id) ? 'Salvat' : 'Salvează'}
+                        </button>
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        // Toggle Recipe Selection (Manual)
+        function toggleRecipe(id) {
+            // If auto-selected, remove from auto and add to manual
+            if (autoSelectedRecipes.has(id)) {
+                autoSelectedRecipes.delete(id);
+            }
+            
+            if (selectedRecipes.has(id)) {
+                selectedRecipes.delete(id);
+            } else {
+                selectedRecipes.add(id);
+            }
+            renderRecipes();
+            updateSelectionDisplay();
+        }
+
+        // Update Selection Display
+        function updateSelectionDisplay() {
+            const count = selectedRecipes.size;
+            document.getElementById('selectedCount').textContent = count;
+            document.getElementById('panelBadge').textContent = count + autoSelectedRecipes.size;
+            
+            const list = document.getElementById('selectedList');
+            const allSelected = [...new Set([...selectedRecipes, ...autoSelectedRecipes])];
+            
+            if (allSelected.length === 0) {
+                list.innerHTML = '<p style="color: #888; width: 100%; text-align: center;">Folosește "Generează Planul Automat" sau selectează manual rețete!</p>';
+            } else {
+                list.innerHTML = allSelected.map(id => {
+                    const recipe = recipes.find(r => r.id === id);
+                    const isAuto = autoSelectedRecipes.has(id) && !selectedRecipes.has(id);
+                    return `
+                        <div class="selected-tag" style="${isAuto ? 'border-color: #0080ff; background: rgba(0,128,255,0.2);' : ''}">
+                            ${recipe.title} ${isAuto ? '<small>(auto)</small>' : ''}
+                            <span class="remove-tag" onclick="toggleRecipe(${id})">
+                                <i class="fas fa-times"></i>
+                            </span>
+                        </div>
+                    `;
+                }).join('');
+            }
+        }
+
+        // Clear Selection
+        function clearSelection() {
+            selectedRecipes.clear();
+            autoSelectedRecipes.clear();
+            renderRecipes();
+            updateSelectionDisplay();
+            document.getElementById('generatedPlanContainer').innerHTML = '';
+        }
+
+        // Filter Functions
+        function setFilter(filter) {
+            currentFilter = filter;
+            
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.toLowerCase().includes(filter) || 
+                    (filter === 'all' && btn.textContent.includes('Toate'))) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            renderRecipes();
+        }
+
+        function filterRecipes() {
+            renderRecipes();
+        }
+
+        // Toggle Panel
+        function togglePanel() {
+            document.getElementById('selectedPanel').classList.toggle('active');
+        }
+
+        // Show Recipe Details
+        function showRecipeDetails(id) {
+            const recipe = recipes.find(r => r.id === id);
+            const modal = document.getElementById('recipeModal');
+            
+            document.getElementById('modalTitle').textContent = recipe.title;
+            document.getElementById('modalStats').innerHTML = `
+                <span class="stat"><i class="fas fa-fire"></i> ${recipe.calories} kcal</span>
+                <span class="stat"><i class="fas fa-drumstick-bite"></i> ${recipe.protein}g proteină</span>
+                <span class="stat"><i class="fas fa-bread-slice"></i> ${recipe.carbs}g carbohidrați</span>
+                <span class="stat"><i class="fas fa-cheese"></i> ${recipe.fat}g grăsimi</span>
+            `;
+            
+            document.getElementById('modalBody').innerHTML = `
+                <div class="nutrition-grid">
+                    <div class="nutrition-item">
+                        <div class="nutrition-value">${recipe.calories}</div>
+                        <div class="nutrition-label">Calorii</div>
+                    </div>
+                    <div class="nutrition-item">
+                        <div class="nutrition-value">${recipe.protein}g</div>
+                        <div class="nutrition-label">Proteină</div>
+                    </div>
+                    <div class="nutrition-item">
+                        <div class="nutrition-value">${recipe.carbs}g</div>
+                        <div class="nutrition-label">Carbohidrați</div>
+                    </div>
+                    <div class="nutrition-item">
+                        <div class="nutrition-value">${recipe.fat}g</div>
+                        <div class="nutrition-label">Grăsimi</div>
+                    </div>
+                </div>
+                
+                <div class="recipe-section" style="margin-bottom: 25px;">
+                    <h4><i class="fas fa-shopping-basket"></i> Ingrediente complete</h4>
+                    <ul style="line-height: 2;">
+                        ${recipe.ingredients.map(ing => `<li>${ing}</li>`).join('')}
+                    </ul>
+                </div>
+                
+                <div class="recipe-section" style="margin-bottom: 25px;">
+                    <h4><i class="fas fa-list-ol"></i> Mod de preparare</h4>
+                    <ol style="line-height: 2; padding-left: 20px;">
+                        ${recipe.instructions.map(step => `<li>${step}</li>`).join('')}
+                    </ol>
+                </div>
+                
+                <div style="background: rgba(255,215,0,0.1); padding: 20px; border-radius: 10px; border-left: 4px solid gold;">
+                    <h4 style="color: gold; margin-bottom: 10px;"><i class="fas fa-lightbulb"></i> Tipul Champs</h4>
+                    <p>${recipe.tips}</p>
+                </div>
+                
+                <div style="margin-top: 25px; text-align: center;">
+                    <button class="action-btn btn-details" onclick="toggleRecipe(${recipe.id}); closeModal();" 
+                            style="padding: 15px 30px; font-size: 16px;">
+                        <i class="fas fa-check-circle"></i> 
+                        ${selectedRecipes.has(recipe.id) || autoSelectedRecipes.has(recipe.id) ? 'Elimină din selecție' : 'Adaugă la selecție'}
+                    </button>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('recipeModal').classList.remove('active');
+        }
+
+        // Toggle Favorite
+        function toggleFavorite(id) {
+            const index = favorites.indexOf(id);
+            if (index > -1) {
+                favorites.splice(index, 1);
+            } else {
+                favorites.push(id);
+            }
+            localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
+            renderRecipes();
+        }
+
+        // Generate Manual Plan
+        function generateManualPlan() {
+            if (selectedRecipes.size === 0) {
+                alert('Selectează cel puțin o rețetă sau folosește generarea automată!');
+                return;
+            }
+            
+            const selected = Array.from(selectedRecipes).map(id => recipes.find(r => r.id === id));
+            const days = ['Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri', 'Sâmbătă', 'Duminică'];
+            const mealsPerDay = 4;
+            
+            let html = `
+                <div class="meal-plan-result">
+                    <h2 style="color: #00ff00; margin-bottom: 20px; text-align: center;">
+                        <i class="fas fa-clipboard-check"></i> Plan din Selecție Manuală
+                    </h2>
+            `;
+            
+            days.forEach((day, index) => {
+                const dayMeals = [];
+                for (let i = 0; i < mealsPerDay; i++) {
+                    dayMeals.push(selected[(index * mealsPerDay + i) % selected.length]);
+                }
+                
+                const dayCal = dayMeals.reduce((sum, m) => sum + m.calories, 0);
+                const dayPro = dayMeals.reduce((sum, m) => sum + m.protein, 0);
+                
+                html += `
+                    <div class="plan-day">
+                        <h4><i class="fas fa-calendar-day"></i> ${day}</h4>
+                        ${dayMeals.map((meal, idx) => `
+                            <div class="plan-meal">
+                                <span class="meal-name"><strong>${['Mic Dejun', 'Prânz', 'Gustare', 'Cină'][idx]}:</strong> ${meal.title}</span>
+                                <span class="meal-stats">
+                                    <span class="meal-cal"><i class="fas fa-fire"></i> ${meal.calories}</span>
+                                    <span class="meal-protein"><i class="fas fa-drumstick-bite"></i> ${meal.protein}g</span>
+                                </span>
+                            </div>
+                        `).join('')}
+                        <div class="day-total">
+                            <span>Total Zi:</span>
+                            <span>${dayCal} kcal | ${dayPro}g proteină</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += `
+                    <div style="text-align: center; margin-top: 30px;">
+                        <button class="action-btn btn-details" onclick="window.print()" style="padding: 15px 30px;">
+                            <i class="fas fa-print"></i> Printează Planul
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('generatedPlanContainer').innerHTML = html;
+            togglePanel();
+            document.getElementById('generatedPlanContainer').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Save Selection
+        function saveSelection() {
+            if (selectedRecipes.size === 0 && autoSelectedRecipes.size === 0) {
+                alert('Nicio rețetă de salvat!');
+                return;
+            }
+            const allSelected = [...new Set([...selectedRecipes, ...autoSelectedRecipes])];
+            localStorage.setItem('selectedRecipes', JSON.stringify(allSelected));
+            alert(`${allSelected.length} rețete salvate cu succes!`);
+        }
+
+        // Load saved selection
+        window.addEventListener('load', () => {
+            const saved = localStorage.getItem('selectedRecipes');
+            if (saved) {
+                const ids = JSON.parse(saved);
+                ids.forEach(id => selectedRecipes.add(id));
+                updateSelectionDisplay();
+                renderRecipes();
+            }
+        });
+
+        // Close modal on outside click
+        document.getElementById('recipeModal').addEventListener('click', (e) => {
+            if (e.target.id === 'recipeModal') closeModal();
+        });
+    
+        // Tab Navigation - CORECTAT: o singură definiție cu suport pentru quiz
+        function openTab(tabName) {
+            const tabs = document.getElementsByClassName('tab-content');
+            for (let tab of tabs) {
+                tab.classList.remove('active');
+            }
+
+            const buttons = document.getElementsByClassName('tab-btn');
+            for (let btn of buttons) {
+                btn.classList.remove('active');
+            }
+
+            document.getElementById(tabName).classList.add('active');
+            event.currentTarget.classList.add('active');
+
+            // Initialize quiz if opened
+            if (tabName === 'quiz') {
+                // Reset quiz state every time tab is opened
+                currentQuestion = 0;
+                score = 0;
+                answered = false;
+                document.getElementById('quiz-interface').style.display = 'block';
+                document.getElementById('quiz-results').style.display = 'none';
+                document.getElementById('question-container').innerHTML = '';
+                loadQuestion();
+            }
+        }
+
+        // Quiz Data
+        const quizQuestions = [
+            {
+                question: "Cine este considerat 'Părintele Culturismului Modern'?",
+                answers: ["Arnold Schwarzenegger", "Eugen Sandow", "Joe Weider", "Ronnie Coleman"],
+                correct: 1,
+                info: "Eugen Sandow (1867-1925) a fost primul care a popularizat antrenamentul cu greutăți pentru estetică."
+            },
+            {
+                question: "Câte titluri Mr. Olympia are Ronnie Coleman?",
+                answers: ["6", "7", "8", "9"],
+                correct: 2,
+                info: "Ronnie Coleman deține recordul de 8 titluri consecutive Mr. Olympia (1998-2005)."
+            },
+            {
+                question: "În ce an a fost lansat filmul 'Pumping Iron'?",
+                answers: ["1975", "1977", "1980", "1983"],
+                correct: 1,
+                info: "Pumping Iron (1977) a consacrat culturismul mainstream și a lansat cariera lui Arnold."
+            },
+            {
+                question: "Cine a fondat CrossFit?",
+                answers: ["Greg Glassman", "Rich Froning", "Mat Fraser", "Dave Castro"],
+                correct: 0,
+                info: "Greg Glassman a fondat CrossFit în 2000, revoluționând fitness-ul funcțional."
+            },
+            {
+                question: "Care este exercițiul considerat 'Regele tuturor exercițiilor'?",
+                answers: ["Bench Press", "Deadlift", "Squat", "Overhead Press"],
+                correct: 2,
+                info: "Squat lucrează cele mai multe grupe musculare și stimulează creșterea hormonală maximă."
+            },
+            {
+                question: "Câte grame de proteină recomandă în general experții per kg corp?",
+                answers: ["0.8g", "1.2g", "1.6-2.2g", "3g+"],
+                correct: 2,
+                info: "Pentru sportivi și persoane active, 1.6-2.2g/kg este doza optimă pentru sinteza proteică."
+            },
+            {
+                question: "Ce înseamnă 'HIIT'?",
+                answers: ["High Intensity Interval Training", "Heavy Intensity Interval Training", "High Impact Intense Training", "Heavy Impact Interval Training"],
+                correct: 0,
+                info: "HIIT alternează perioade scurte de efort intens cu perioade de recuperare."
+            },
+            {
+                question: "Cine a fost primul Mr. Olympia?",
+                answers: ["Larry Scott", "Arnold Schwarzenegger", "Sergio Oliva", "Frank Zane"],
+                correct: 0,
+                info: "Larry Scott a câștigat primul Mr. Olympia în 1965 și 1966."
+            },
+            {
+                question: "Ce supliment este cel mai studiat științific?",
+                answers: ["BCAA", "Creatină Monohidrat", "Pre-workout", "Fat burner"],
+                correct: 1,
+                info: "Creatina are peste 1000 de studii care confirmă eficacitatea și siguranța."
+            },
+            {
+                question: "Câte calorii are aproximativ 1g de proteină?",
+                answers: ["4 kcal", "7 kcal", "9 kcal", "2 kcal"],
+                correct: 0,
+                info: "Atât proteinele cât și carbohidrații au 4 kcal/g, grăsimile au 9 kcal/g."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+
+        // Quiz Functions
+        function loadQuestion() {
+            const container = document.getElementById('question-container');
+            const q = quizQuestions[currentQuestion];
+
+            let html = `
+                <div class="question-card">
+                    <div class="question-number">Întrebarea ${currentQuestion + 1} din ${quizQuestions.length}</div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="answers-grid">
+            `;
+
+            q.answers.forEach((answer, index) => {
+                html += `
+                    <button class="answer-btn" onclick="checkAnswer(${index})" id="answer-${index}">
+                        <span class="answer-letter">${String.fromCharCode(65 + index)}</span>
+                        ${answer}
+                    </button>
+                `;
+            });
+
+            html += `
+                    </div>
+                    <div id="info-box" style="margin-top: 20px; padding: 15px; background: rgba(255,215,0,0.1); border-left: 4px solid gold; border-radius: 0 10px 10px 0; display: none;">
+                        <i class="fas fa-info-circle" style="color: gold;"></i> <span id="info-text"></span>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = html;
+            answered = false;
+
+            // Update progress
+            const progress = ((currentQuestion) / quizQuestions.length) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+        }
+
+        function checkAnswer(selected) {
+            if (answered) return;
+            answered = true;
+
+            const q = quizQuestions[currentQuestion];
+            const buttons = document.querySelectorAll('.answer-btn');
+
+            buttons.forEach((btn, index) => {
+                btn.disabled = true;
+                if (index === q.correct) {
+                    btn.classList.add('correct');
+                } else if (index === selected && index !== q.correct) {
+                    btn.classList.add('wrong');
+                }
+            });
+
+            if (selected === q.correct) {
+                score++;
+            }
+
+            // Show info
+            document.getElementById('info-text').textContent = q.info;
+            document.getElementById('info-box').style.display = 'block';
+
+            // Next button
+            setTimeout(() => {
+                currentQuestion++;
+                if (currentQuestion < quizQuestions.length) {
+                    loadQuestion();
+                } else {
+                    showResults();
+                }
+            }, 2500);
+        }
+
+        function showResults() {
+            document.getElementById('quiz-interface').style.display = 'none';
+            document.getElementById('quiz-results').style.display = 'block';
+
+            const percentage = (score / quizQuestions.length) * 100;
+            const degrees = (percentage / 100) * 360;
+
+            document.getElementById('score-circle').style.setProperty('--score-deg', degrees + 'deg');
+            document.getElementById('score-text').textContent = `${score}/${quizQuestions.length}`;
+
+            const msg = document.getElementById('result-message');
+            const details = document.getElementById('result-details');
+
+            if (percentage >= 80) {
+                msg.textContent = '🏆 EȘTI UN CAMPION!';
+                msg.className = 'result-message champ';
+                details.textContent = 'Cunoștințele tale despre fitness sunt impresionante!';
+            } else if (percentage >= 50) {
+                msg.textContent = '💪 BINE FĂCUT!';
+                msg.className = 'result-message good';
+                details.textContent = 'Ai cunoștințe solide, dar mai este loc de îmbunătățiri.';
+            } else {
+                msg.textContent = '📚 MAI ANTRENEAZĂ-TE!';
+                msg.className = 'result-message train';
+                details.textContent = 'Citește secțiunea Cunoștințe pentru a învăța mai multe.';
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            document.getElementById('quiz-results').style.display = 'none';
+            document.getElementById('quiz-interface').style.display = 'block';
+            loadQuestion();
+        }
+</script>
+</body>
+</html>

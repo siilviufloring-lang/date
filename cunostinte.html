@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHAMP KNOWLEDGE - Sfaturi & Nutriție</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(-45deg, #0f0f0f, #1a0000, #330000, #000000);
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease infinite;
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Navigation */
+        .nav-champ {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid rgba(255, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff1a1a;
+            text-shadow: 0 0 20px red;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 0, 0, 0.2);
+            border-color: #ff1a1a;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+    
+   
+
+        /* Hero Section */
+        .hero-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: radial-gradient(circle at center, rgba(255,0,0,0.1) 0%, transparent 70%);
+        }
+
+        .hero-title {
+            font-size: 48px;
+            color: #ff1a1a;
+            text-shadow: 0 0 30px red;
+            margin-bottom: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: #ccc;
+            font-style: italic;
+        }
+
+        /* Tab System */
+        .tabs-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .tabs-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 15px 30px;
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background: linear-gradient(45deg, #ff0000, #800000);
+            border-color: #ff0000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 20px;
+            padding: 25px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,0,0,0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .info-card:hover::before {
+            left: 100%;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
+            border-color: #ff1a1a;
+        }
+
+        .card-icon {
+            font-size: 40px;
+            color: #ff1a1a;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+        }
+
+        .card-title {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .card-text {
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        /* Calculator Section */
+        .calculator-box {
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            margin: 30px auto;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ff4d4d;
+            font-weight: bold;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: #ff1a1a;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+
+        .calc-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #ff0000, #800000);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .calc-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+        }
+
+        .result-box {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid #ff1a1a;
+            display: none;
+        }
+
+        .result-box.show {
+            display: block;
+            animation: slideIn 0.5s;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Supplement Cards */
+        .supplement-card {
+            background: linear-gradient(135deg, rgba(255,0,0,0.1), rgba(0,0,0,0.5));
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .supplement-card:hover {
+            transform: translateX(10px);
+            box-shadow: -5px 0 20px rgba(255, 0, 0, 0.3);
+        }
+
+        .supp-icon {
+            font-size: 50px;
+            color: #ff1a1a;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .supp-content h3 {
+            color: #ff4d4d;
+            margin-bottom: 10px;
+        }
+
+        .dosage {
+            display: inline-block;
+            background: rgba(255, 0, 0, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-top: 10px;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, #ff0000, transparent);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 50%;
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-start;
+            padding-right: 0;
+            padding-left: 50%;
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 20px;
+            position: relative;
+        }
+
+        .timeline-year {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ff1a1a;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+        }
+
+        /* Workout Cards */
+        .workout-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+        }
+
+        .workout-card:hover {
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
+        }
+
+        .workout-header {
+            background: linear-gradient(90deg, rgba(255,0,0,0.3), transparent);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .workout-level {
+            background: rgba(255, 0, 0, 0.3);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            border: 1px solid rgba(255, 0, 0, 0.5);
+        }
+
+        .exercise-list {
+            padding: 20px;
+        }
+
+        .exercise-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .exercise-item:hover {
+            background: rgba(255, 0, 0, 0.05);
+            padding-left: 25px;
+        }
+
+        .exercise-number {
+            background: #ff1a1a;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .exercise-details {
+            flex: 1;
+        }
+
+        .exercise-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .exercise-sets {
+            color: #ff4d4d;
+            font-size: 14px;
+        }
+
+        /* Tips List */
+        .tips-list {
+            list-style: none;
+        }
+
+        .tips-list li {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid #ff1a1a;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 0 10px 10px 0;
+            transition: all 0.3s;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .tips-list li:hover {
+            background: rgba(255, 0, 0, 0.1);
+            transform: translateX(10px);
+        }
+
+        .tip-icon {
+            color: #ff1a1a;
+            font-size: 20px;
+            margin-top: 2px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                justify-content: flex-start;
+                padding-left: 50px;
+                padding-right: 0;
+            }
+            
+            .timeline-year {
+                left: 20px;
+                transform: translateX(-50%);
+            }
+
+            .supplement-card {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .glow-text {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000; }
+            to { text-shadow: 0 0 20px #ff4d4d, 0 0 30px #ff4d4d, 0 0 40px #ff0000; }
+        }
+
+        /* Back Button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            margin: 20px;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 0, 0, 0.2);
+            transform: translateX(-5px);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            color: #ff1a1a;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav-champ">
+        <div class="nav-logo">
+            <i class="fas fa-dumbbell"></i>
+            CHAMP FITNESS
+        </div>
+        <div class="nav-links">
+    <a href="index.html"><i class="fas fa-home"></i> Dashboard</a>
+    <a href="profil.html"><i class="fas fa-user"></i> Profil</a>
+    <a href="cunostinte.html" class="active"><i class="fas fa-book"></i> Cunoștințe</a>
+    <a href="food.html"><i class="fas fa-utensils"></i> Food</a>
+</div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1 class="hero-title glow-text">CHAMP KNOWLEDGE 🔥</h1>
+        <p class="hero-subtitle">"Knowledge is power. Power builds champions."</p>
+    </section>
+
+    <!-- Back Button -->
+    <a href="index.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i> Înapoi la App
+    </a>
+
+    <!-- Tabs Container -->
+    <div class="tabs-container">
+        
+        <!-- Tab Navigation -->
+        <div class="tabs-nav">
+            <button class="tab-btn active" onclick="openTab('nutrition')">
+                <i class="fas fa-apple-alt"></i> Nutriție
+            </button>
+            <button class="tab-btn" onclick="openTab('supplements')">
+                <i class="fas fa-pills"></i> Suplimente
+            </button>
+            <button class="tab-btn" onclick="openTab('history')">
+                <i class="fas fa-landmark"></i> Istorie
+            </button>
+            <button class="tab-btn" onclick="openTab('homeworkout')">
+                <i class="fas fa-home"></i> Exerciții Acasă
+            </button>
+        </div>
+
+        <!-- Nutrition Tab -->
+        <div id="nutrition" class="tab-content active">
+            <h2 class="section-title">Nutriție & Dietă</h2>
+            <p class="section-subtitle">"Abs are made in the kitchen"</p>
+
+            <div class="card-grid">
+                <div class="info-card">
+                    <div class="card-icon"><i class="fas fa-fire"></i></div>
+                    <h3 class="card-title">Deficit Caloric</h3>
+                    <p class="card-text">Pentru slăbit, ai nevoie de un deficit de 300-500 calorii. Nu reduce prea mult - metabolismul încetinește.</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-icon"><i class="fas fa-drumstick-bite"></i></div>
+                    <h3 class="card-title">Proteine</h3>
+                    <p class="card-text">Consumă 1.6-2.2g proteină per kg corp. Ajută la recuperare și menținerea masei musculare.</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-icon"><i class="fas fa-bread-slice"></i></div>
+                    <h3 class="card-title">Carbohidrați</h3>
+                    <p class="card-text">Carbohidrații complecși (orez, ovăz, cartofi) oferă energie susținută. Evită zaharurile simple.</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-icon"><i class="fas fa-cheese"></i></div>
+                    <h3 class="card-title">Grăsimi Sănătoase</h3>
+                    <p class="card-text">Grăsimile nesaturate (avocado, nuci, ulei de măsline) sunt esențiale pentru hormoni.</p>
+                </div>
+            </div>
+
+            <!-- Calorie Calculator -->
+            <div class="calculator-box">
+                <h3 style="text-align: center; margin-bottom: 20px; color: #ff1a1a;">
+                    <i class="fas fa-calculator"></i> Calculator Calorii Zilnice
+                </h3>
+                <div class="input-group">
+                    <label>Greutate (kg)</label>
+                    <input type="number" id="weight" placeholder="Ex: 75">
+                </div>
+                <div class="input-group">
+                    <label>Înălțime (cm)</label>
+                    <input type="number" id="height" placeholder="Ex: 180">
+                </div>
+                <div class="input-group">
+                    <label>Vârstă</label>
+                    <input type="number" id="age" placeholder="Ex: 25">
+                </div>
+                <div class="input-group">
+                    <label>Gen</label>
+                    <select id="gender">
+                        <option value="male">Masculin</option>
+                        <option value="female">Feminin</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Nivel Activitate</label>
+                    <select id="activity">
+                        <option value="1.2">Sedentar (birou)</option>
+                        <option value="1.375">Ușor activ (1-3 antrenamente)</option>
+                        <option value="1.55">Moderat (3-5 antrenamente)</option>
+                        <option value="1.725">Foarte activ (6-7 antrenamente)</option>
+                        <option value="1.9">Atlet (2x pe zi)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Obiectiv</label>
+                    <select id="goal">
+                        <option value="cut">Slăbire (-500 kcal)</option>
+                        <option value="maintain">Menținere</option>
+                        <option value="bulk">Masă (+300 kcal)</option>
+                    </select>
+                </div>
+                <button class="calc-btn" onclick="calculateCalories()">
+                    <i class="fas fa-fire-alt"></i> Calculează
+                </button>
+                
+                <div id="result" class="result-box">
+                    <h4 style="color: #ff1a1a; margin-bottom: 10px;">Rezultate:</h4>
+                    <p id="bmr-result"></p>
+                    <p id="tdee-result"></p>
+                    <p id="target-result" style="color: #4CAF50; font-weight: bold;"></p>
+                    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+                        <p style="font-size: 14px; color: #aaa;">
+                            <i class="fas fa-info-circle"></i> 
+                            Proteine: <span id="protein-gram"></span>g | 
+                            Carbohidrați: <span id="carb-gram"></span>g | 
+                            Grăsimi: <span id="fat-gram"></span>g
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="tips-list" style="max-width: 800px; margin: 40px auto;">
+                <li>
+                    <i class="fas fa-check-circle tip-icon"></i>
+                    <div>
+                        <strong>Mănâncă la fiecare 3-4 ore</strong><br>
+                        Menține metabolismul activ și previne poftele excesive.
+                    </div>
+                </li>
+                <li>
+                    <i class="fas fa-check-circle tip-icon"></i>
+                    <div>
+                        <strong>Hidratare</strong><br>
+                        Minim 3-4 litri de apă pe zi. Mușchii sunt 75% apă.
+                    </div>
+                </li>
+                <li>
+                    <i class="fas fa-check-circle tip-icon"></i>
+                    <div>
+                        <strong>Meal Prep</strong><br>
+                        Pregătește mâncarea din timp pentru a evita alegerile proaste când ești obosit.
+                    </div>
+                </li>
+                <li>
+                    <i class="fas fa-check-circle tip-icon"></i>
+                    <div>
+                        <strong>80/20 Rule</strong><br>
+                        80% mâncare curată, 20% flexibilitate pentru sănătate mintală.
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Supplements Tab -->
+        <div id="supplements" class="tab-content">
+            <h2 class="section-title">Suplimente</h2>
+            <p class="section-subtitle">"Suplimentează-ți performanța, nu înlocui mâncarea"</p>
+
+            <div class="supplement-card">
+                <div class="supp-icon"><i class="fas fa-flask"></i></div>
+                <div class="supp-content">
+                    <h3>Whey Protein</h3>
+                    <p>Cel mai popular supliment. Proteine rapid absorbabile, ideale post-antrenament sau când nu poți lua proteine din mâncare.</p>
+                    <span class="dosage"><i class="fas fa-clock"></i> Doză: 20-30g după antrenament sau între mese</span>
+                </div>
+            </div>
+
+            <div class="supplement-card">
+                <div class="supp-icon"><i class="fas fa-bolt"></i></div>
+                <div class="supp-content">
+                    <h3>Creatină Monohidrat</h3>
+                    <p>Cel mai studiat supliment. Crește forța, puterea și volumul celular. Sigur pe termen lung.</p>
+                    <span class="dosage"><i class="fas fa-clock"></i> Doză: 5g zilnic, oricând în zi</span>
+                </div>
+            </div>
+
+            <div class="supplement-card">
+                <div class="supp-icon"><i class="fas fa-heart"></i></div>
+                <div class="supp-content">
+                    <h3>Omega-3 (Ulei de pește)</h3>
+                    <p>Anti-inflamator natural, susține sănătatea inimii și articulațiilor. Esențial dacă nu mănânci pește regulat.</p>
+                    <span class="dosage"><i class="fas fa-clock"></i> Doză: 1-3g EPA+DHA zilnic cu masă</span>
+                </div>
+            </div>
+
+            <div class="supplement-card">
+                <div class="supp-icon"><i class="fas fa-sun"></i></div>
+                <div class="supp-content">
+                    <h3>Vitamina D3</h3>
+                    <p>Crucială pentru sistemul imunitar, sănătatea oaselor și producția de testosteron. Majoritatea oamenilor au deficit.</p>
+                    <span class="dosage"><i class="fas fa-clock"></i> Doză: 2000-4000 UI zilnic cu grăsimi</span>
+                </div>
+            </div>
+
+            <div class="supplement-card">
+                <div class="supp-icon"><i class="fas fa-coffee"></i></div>
+                <div class="supp-content">
+                    <h3>Cafeină / Pre-Workout</h3>
+                    <p>Crește energia, focusul și performanța. Nu abuza - ciclizarea previne toleranța.</p>
+                    <span class="dosage"><i class="fas fa-clock"></i> Doză: 100-200mg înainte de antrenament</span>
+                </div>
+            </div>
+
+            <div class="supplement-card">
+                <div class="supp-icon"><i class="fas fa-bed"></i></div>
+                <div class="supp-content">
+                    <h3>Magneziu</h3>
+                    <p>Importat pentru relaxare musculară, somn de calitate și recuperare. 75% din populație are deficit.</p>
+                    <span class="dosage"><i class="fas fa-clock"></i> Doză: 200-400mg înainte de culcare</span>
+                </div>
+            </div>
+
+            <div class="info-card" style="margin-top: 30px; border: 2px dashed rgba(255,0,0,0.3);">
+                <h3 style="color: #ff1a1a; margin-bottom: 15px;"><i class="fas fa-exclamation-triangle"></i> Atenție!</h3>
+                <p>Suplimentele NU înlocuiesc o dietă echilibrată. Sunt doar... suplimente. Prioritizează întotdeauna nutrienții din mâncare reală. Consultă un medic înainte de a începe orice regim de suplimentare.</p>
+            </div>
+        </div>
+
+        <!-- History Tab -->
+        <div id="history" class="tab-content">
+            <h2 class="section-title">Istoria Fitness-ului</h2>
+            <p class="section-subtitle">"Învață din trecut pentru a construi viitorul"</p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">1890</div>
+                    <div class="timeline-content">
+                        <h3 style="color: #ff1a1a;">Eugen Sandow</h3>
+                        <p>Părintele culturismului modern. A popularizat antrenamentul cu greutăți și dezvoltarea simetrică a musculaturii.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">1940</div>
+                    <div class="timeline-content">
+                        <h3 style="color: #ff1a1a;">Golden Era începe</h3>
+                        <p>Joe Weider introduce Mr. America și publicațiile de fitness. Culturismul devine mainstream în SUA.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">1970</div>
+                    <div class="timeline-content">
+                        <h3 style="color: #ff1a1a;">Arnold & Golden Era</h3>
+                        <p>Arnold Schwarzenegger, Lou Ferrigno și Frank Zane definesc estetica culturismului. Pumping Iron schimbă industria.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">1980</div>
+                    <div class="timeline-content">
+                        <h3 style="color: #ff1a1a;">Aerobics & Fitness</h3>
+                        <p>Jane Fonda și aerobicul fac fitness-ul accesibil femeilor. Sălile de sport explodează în popularitate.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2000</div>
+                    <div class="timeline-content">
+                        <h3 style="color: #ff1a1a;">CrossFit & Functional</h3>
+                        <p>Greg Glassman lansează CrossFit. Antrenamentul funcțional și HIIT devin trenduri globale.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2020</div>
+                    <div class="timeline-content">
+                        <h3 style="color: #ff1a1a;">Era Digitală</h3>
+                        <p>App-uri, wearables și antrenamente online. Fitness-ul devine mai accesibil ca niciodată.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-grid" style="margin-top: 50px;">
+                <div class="info-card">
+                    <h3 style="color: #ff1a1a;">Legende ale Culturismului</h3>
+                    <ul style="list-style: none; margin-top: 15px;">
+                        <li style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <strong>Arnold Schwarzenegger</strong> - 7x Mr. Olympia
+                        </li>
+                        <li style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <strong>Ronnie Coleman</strong> - 8x Mr. Olympia
+                        </li>
+                        <li style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <strong>Lee Haney</strong> - 8x Mr. Olympia
+                        </li>
+                        <li style="padding: 10px 0;">
+                            <strong>Dorian Yates</strong> - 6x Mr. Olympia
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3 style="color: #ff1a1a;">Recorduri Mondiale</h3>
+                    <ul style="list-style: none; margin-top: 15px;">
+                        <li style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <strong>Bench Press:</strong> 355kg (Julius Maddox)
+                        </li>
+                        <li style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <strong>Squat:</strong> 490kg (Ray Williams)
+                        </li>
+                        <li style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <strong>Deadlift:</strong> 501kg (Hafþór Júlíus)
+                        </li>
+                        <li style="padding: 10px 0;">
+                            <strong>Total Powerlifting:</strong> 1273kg
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Home Workout Tab -->
+        <div id="homeworkout" class="tab-content">
+            <h2 class="section-title">Antrenamente Acasă</h2>
+            <p class="section-subtitle">"Nu ai nevoie de sală, ai nevoie de voință"</p>
+
+            <!-- Beginner Workout -->
+            <div class="workout-card">
+                <div class="workout-header">
+                    <div>
+                        <h3 style="color: #ff1a1a;"><i class="fas fa-seedling"></i> Începător - Full Body</h3>
+                        <p style="color: #aaa; margin-top: 5px;">3x pe săptămână | Fără echipament</p>
+                    </div>
+                    <span class="workout-level">Ușor</span>
+                </div>
+                <div class="exercise-list">
+                    <div class="exercise-item">
+                        <div class="exercise-number">1</div>
+                        <div class="exercise-details">
+                            <div class="exercise-name">Flotări (Push-ups)</div>
+                            <div class="exercise-sets">3 seturi x 8-12 repetări | Pauză 60s</div>
+                        </div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="exercise-number">2</div>
+                        <div class="exercise-details">
+                            <div class="exercise-name">Genuflexiuni (Squats)</div>
+                            <div class="exercise-sets">3 seturi x 15-20 repetări | Pauză 60s</div>
+                        </div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="exercise-number">3</div>
+                        <div class="exercise-details">
+                            <div class="exercise-name">Plank</div>
+                            <div class="exercise-sets">3 seturi x 30-45 secunde | Pauză 45s</div>
+                        </div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="exercise-number">4</div>
+                        <div class="exercise-details">
+                            <div class="exercise-name">Fandări (Lunges)</div>
+                            <div class="exercise-sets">3 seturi x 10 repetări/picior | Pauză 60s</div>
+                        </div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="exercise-number">5</div>
+                        <div class="exercise-details">
+                            <div class="exercise-name">Mountain Climbers</div>
+                            <div class="exercise-sets">3 seturi x 20 repetări | Pauză 45s</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intermediate Workout -->
+            <div class="workout-card">
+                <div class="workout-header">
+                    <div>
+                        <h3 style="color: #ff1a1a;"><i class="fas fa-fire"></i> Intermediar - HIIT Circuit</h3>
+                        <p style="color: #aaa; margin-top: 5px;">4x pe săptămână | Arde grăsime</p>
+                    </div>
+                    <span class="workout-level" style="background: rgba(255, 165, 0, 0.3); border-color: orange;">Mediu</span>
+                </div>
+                <div class="exercise-list">
+                    <div class="exercise-item">
+                        <div class="exercise-number">1</div>
+                        <div class="exercise-details">
+                            <div class="exercise-name">Burpees</div>
+                            <div class="exercise-sets">4 seturi x 15 repetări | Pauză 45s</div>
+                        </div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="exercise-number">2</div>
+                        <div class="exercise-details">
+                            <div class="exercise-name">Jump Squats</div>
+                            <div class="exercise-sets">4 seturi x 20 repetări | Pauză 45s</div>
+                        </div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="exercise-number">3</div>
+                        <div class="exercise-details">
+                            <div class="exercise-name">Pike Push-ups (Umeri)</div>
+                            <div class="exercise-sets">3 seturi x 10-12 repetări | Pauză 60s</div>
+                        </div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="exercise-number">4</div>
+                        <div class="exercise-details">
+                            <div class="exercise-name">Bulgarian Split Squats</div>
+                            <div class="exercise-sets">3 seturi x 12 repetări/picior | Pauză 60s</div>
+                        </div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="exercise-number">5</div>
+                        <div class="exercise-details">
+                            <div class="exercise-name">Leg Raises (Abdomen)</div>
+                            <div class="exercise-sets">3 seturi x 15 repetări | Pauză 45s</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced Workout -->
+            <div class="workout-card">
+                <div class="workout-header">
+                    <div>
+                        <h3 style="color: #ff1a1a;"><i class="fas fa-dragon"></i> Avansat - Calisthenics</h3>
+                        <p style="color: #aaa; margin-top: 5px;">5-6x pe săptămână | Forță & Masă</p>
+                    </div>
+                    <span class="workout-level" style="background: rgba(255, 0, 0, 0.4); border-color: red;">Greu</span>
+                </div>
+                <div class="exercise-list">
+                    <div class="exercise-item">
+                        <div class="exercise-number">1</div>
+                        <div class="exercise-details">
+                            <div class="exercise-name">Pistol Squats (Genuflexiune pe un picior)</div>
+                            <div class="exercise-sets">4 seturi x 5-8 repetări/picior | Pauză 90s</div>
+                        </div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="exercise-number">2</div>
+                        <div class="exercise-details">
+                            <div class="exercise-name">Handstand Push-ups (Verticale)</div>
+                            <div class="exercise-sets">4 seturi x 5-10 repetări | Pauză 90s</div>
+                        </div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="exercise-number">3</div>
+                        <div class="exercise-details">
+                            <div class="exercise-name">Archer Push-ups</div>
+                            <div class="exercise-sets">3 seturi x 6-8 repetări/lateral | Pauză 60s</div>
+                        </div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="exercise-number">4</div>
+                        <div class="exercise-details">
+                            <div class="exercise-name">Dragon Flags (Abdomen avansat)</div>
+                            <div class="exercise-sets">3 seturi x 5-8 repetări | Pauză 60s</div>
+                        </div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="exercise-number">5</div>
+                        <div class="exercise-details">
+                            <div class="exercise-name">Pull-ups (Dacă ai bară) sau Superman</div>
+                            <div class="exercise-sets">4 seturi x MAX repetări | Pauză 90s</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tips Card -->
+            <div class="info-card" style="margin-top: 30px;">
+                <h3 style="color: #ff1a1a; margin-bottom: 15px;"><i class="fas fa-lightbulb"></i> Sfaturi pentru Antrenament Acasă</h3>
+                <ul style="list-style: none; line-height: 2;">
+                    <li><i class="fas fa-check" style="color: #ff1a1a; margin-right: 10px;"></i> <strong>Creează un spațiu dedicat</strong> - chiar și 2x2 metri sunt suficienți</li>
+                    <li><i class="fas fa-check" style="color: #ff1a1a; margin-right: 10px;"></i> <strong>Folosește progresia</strong> - adaugă repetări sau seturi săptămânal</li>
+                    <li><i class="fas fa-check" style="color: #ff1a1a; margin-right: 10px;"></i> <strong>Tempo controlat</strong> - 3 secunde jos, 1 sus pentru tensiune constantă</li>
+                    <li><i class="fas fa-check" style="color: #ff1a1a; margin-right: 10px;"></i> <strong>Investește într-o saltea</strong> - protejează articulațiile</li>
+                    <li><i class="fas fa-check" style="color: #ff1a1a; margin-right: 10px;"></i> <strong>Folosește obiecte casnice</strong> - sticle cu apă = gantere, rucsac = greutate</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="text-align: center; padding: 40px 20px; background: rgba(0,0,0,0.5); margin-top: 50px; border-top: 1px solid rgba(255,0,0,0.2);">
+        <p style="color: #666; font-size: 14px;">
+            <i class="fas fa-dumbbell" style="color: #ff1a1a;"></i><br>
+            CHAMP FITNESS © 2026<br>
+            <span style="color: #ff4d4d;">"Discipline equals freedom"</span>
+        </p>
+    </footer>
+
+    <script>
+        // Tab switching
+        function openTab(tabName) {
+            // Hide all tabs
+            const tabs = document.getElementsByClassName('tab-content');
+            for (let tab of tabs) {
+                tab.classList.remove('active');
+            }
+            
+            // Remove active class from buttons
+            const buttons = document.getElementsByClassName('tab-btn');
+            for (let btn of buttons) {
+                btn.classList.remove('active');
+            }
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.currentTarget.classList.add('active');
+        }
+
+        // Calorie Calculator
+        function calculateCalories() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const age = parseFloat(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+            const activity = parseFloat(document.getElementById('activity').value);
+            const goal = document.getElementById('goal').value;
+
+            if (!weight || !height || !age) {
+                alert('Completează toate câmpurile!');
+                return;
+            }
+
+            // Mifflin-St Jeor Equation
+            let bmr;
+            if (gender === 'male') {
+                bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+            } else {
+                bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+            }
+
+            const tdee = Math.round(bmr * activity);
+            
+            let targetCalories;
+            let goalText;
+            if (goal === 'cut') {
+                targetCalories = tdee - 500;
+                goalText = 'Slăbire';
+            } else if (goal === 'bulk') {
+                targetCalories = tdee + 300;
+                goalText = 'Masă Musculară';
+            } else {
+                targetCalories = tdee;
+                goalText = 'Menținere';
+            }
+
+            // Macronutrients
+            const protein = Math.round(weight * 2); // 2g per kg
+            const fat = Math.round((targetCalories * 0.25) / 9); // 25% from fat
+            const carbs = Math.round((targetCalories - (protein * 4) - (fat * 9)) / 4);
+
+            // Display results
+            document.getElementById('bmr-result').innerHTML = `<strong>BMR (Metabolism Bazal):</strong> ${Math.round(bmr)} kcal`;
+            document.getElementById('tdee-result').innerHTML = `<strong>TDEE (Arderi Zilnice):</strong> ${tdee} kcal`;
+            document.getElementById('target-result').innerHTML = `Target ${goalText}: ${targetCalories} kcal/zi`;
+            
+            document.getElementById('protein-gram').textContent = protein;
+            document.getElementById('carb-gram').textContent = carbs;
+            document.getElementById('fat-gram').textContent = fat;
+
+            document.getElementById('result').classList.add('show');
+        }
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

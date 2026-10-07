@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHAMP FITNESS - Built Different</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        } 
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(-45deg, #0f0f0f, #1a0000, #330000, #000000);
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease infinite;
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Splash Screen */
+        #splash {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeOut 2.5s forwards;
+            animation-delay: 2s;
+        }
+
+        .splash-text {
+            font-size: 60px;
+            color: red;
+            text-shadow: 0 0 30px red;
+            animation: pulse 1s infinite alternate;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
+        }
+
+        /* Navigation */
+        .nav-champ {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid rgba(255, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff1a1a;
+            text-shadow: 0 0 20px red;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(255, 0, 0, 0.2);
+            border-color: #ff1a1a;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+
+        /* Auth Screen */
+        #auth {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background: radial-gradient(circle at center, rgba(255,0,0,0.1) 0%, transparent 70%);
+        }
+
+        .auth-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 42px;
+            color: #ff1a1a;
+            text-shadow: 0 0 25px red;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #ff1a1a;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            flex: 1;
+            padding: 15px;
+            background: linear-gradient(45deg, #ff0000, #800000);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+        }
+
+        #auth-msg {
+            text-align: center;
+            margin-top: 15px;
+            color: #ff4d4d;
+            min-height: 20px;
+        }
+
+        /* Main App */
+        #app {
+            display: none;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .welcome-section {
+            text-align: center;
+            padding: 40px 20px;
+            background: radial-gradient(circle at center, rgba(255,0,0,0.1) 0%, transparent 70%);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        #welcome {
+            font-size: 36px;
+            color: #ff1a1a;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            margin-bottom: 15px;
+        }
+
+        .quote-style {
+            font-style: italic;
+            color: #ff4d4d;
+            font-size: 18px;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
+            border-color: rgba(255, 0, 0, 0.4);
+        }
+
+        .card h3 {
+            color: #ff1a1a;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+        }
+
+        /* Level Box */
+        .level-box {
+            text-align: center;
+        }
+
+        .level-display {
+            font-size: 48px;
+            font-weight: bold;
+            color: #ff1a1a;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            margin: 10px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            height: 20px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 15px 0;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        #progress {
+            height: 100%;
+            background: linear-gradient(90deg, #ff0000, #ff6600);
+            transition: width 0.5s ease;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .xp-text {
+            color: #aaa;
+            font-size: 16px;
+        }
+
+        /* Advanced Calculator Styles */
+        .calc-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .calc-tab {
+            padding: 10px 20px;
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .calc-tab.active {
+            background: linear-gradient(45deg, #ff0000, #800000);
+            border-color: #ff1a1a;
+        }
+
+        .calc-panel {
+            display: none;
+        }
+
+        .calc-panel.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            color: #ff4d4d;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .calorie-result {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid gold;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .calorie-result.show {
+            display: block;
+            animation: slideIn 0.5s;
+        }
+
+        .calorie-number {
+            font-size: 48px;
+            color: gold;
+            font-weight: bold;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Workout List */
+        #workout-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        #workout-list li {
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #ff1a1a;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 0 10px 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        #workout-list li:hover {
+            background: rgba(255, 0, 0, 0.1);
+            transform: translateX(5px);
+        }
+
+        .workout-calories {
+            background: rgba(255, 0, 0, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        /* Leaderboard Styles */
+        .leaderboard-filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(45deg, #ff0000, #800000);
+            border-color: #ff1a1a;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+
+        .leaderboard-item:hover {
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        .rank-1 { border-left-color: gold; background: linear-gradient(90deg, rgba(255,215,0,0.1), transparent); }
+        .rank-2 { border-left-color: silver; background: linear-gradient(90deg, rgba(192,192,192,0.1), transparent); }
+        .rank-3 { border-left-color: #cd7f32; background: linear-gradient(90deg, rgba(205,127,50,0.1), transparent); }
+
+        .rank-badge {
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        .user-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-top: 20px;
+        }
+
+        /* King/Queen Glow */
+        .king-glow {
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5) !important;
+        }
+
+        .queen-glow {
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.5) !important;
+        }
+
+        /* Badges */
+        .badge-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .badge {
+            background: linear-gradient(135deg, #ffd700, #ff6600);
+            color: black;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            animation: popIn 0.5s ease;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* Level Up Overlay */
+        #level-up-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 10000;
+            animation: fadeIn 0.5s;
+        }
+
+        .level-up-text {
+            font-size: 60px;
+            color: #ff1a1a;
+            text-shadow: 0 0 40px red;
+            animation: pulse 1s infinite;
+            text-align: center;
+        }
+
+        .level-up-subtext {
+            font-size: 24px;
+            color: white;
+            margin-top: 20px;
+        }
+
+        /* Grid Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        /* Logout Button */
+        .logout-btn {
+            background: linear-gradient(45deg, #333, #555) !important;
+            margin-top: 20px;
+        }
+
+        .logout-btn:hover {
+            background: linear-gradient(45deg, #ff0000, #800000) !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .splash-text { font-size: 40px; }
+            h1 { font-size: 32px; }
+            #welcome { font-size: 24px; }
+            .nav-links { display: none; }
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .btn-group { flex-direction: column; }
+            .form-grid { grid-template-columns: 1fr; }
+        }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <!-- Splash Screen -->
+    <div id="splash">
+        <h1 class="splash-text">LET'S GO CHAMP</h1>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-champ" id="main-nav" style="display: none;">
+        <div class="nav-logo" onclick="location.href='index.html'">
+            <i class="fas fa-dumbbell"></i>
+            CHAMP FITNESS
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="active"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="profil.html"><i class="fas fa-user"></i> Profil</a>
+            <a href="cunostinte.html"><i class="fas fa-book"></i> Cunoștințe</a>
+            <a href="food.html"><i class="fas fa-utensils"></i> Food</a>
+        </div>
+    </nav>
+
+    <!-- Auth Screen -->
+    <div id="auth">
+        <div class="auth-container">
+            <h1>CHAMP FITNESS</h1>
+            <p class="subtitle">BUILT DIFFERENT.</p>
+            
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Username">
+            </div>
+            
+            <div class="input-group">
+                <input type="password" id="password" placeholder="Password">
+            </div>
+            
+            <div class="input-group">
+                <select id="role">
+                    <option value="king">King 👑</option>
+                    <option value="queen">Queen 👑</option>
+                </select>
+            </div>
+            
+            <div class="btn-group">
+                <button onclick="register()">Register</button>
+                <button onclick="login()">Login</button>
+            </div>
+            
+            <p id="auth-msg"></p>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="app">
+        <div class="welcome-section">
+            <p class="quote-style" id="quote"></p>
+            <h2 id="welcome"></h2>
+            <div class="badge-container" id="user-badges"></div>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Level Card -->
+            <div class="card level-box">
+                <h3><i class="fas fa-trophy"></i> Level Progress</h3>
+                <div class="level-display" id="level">1</div>
+                <div class="progress-bar">
+                    <div id="progress" style="width: 0%"></div>
+                </div>
+                <p class="xp-text">
+                    <span id="xp">0</span> / <span id="xp-needed">100</span> XP
+                </p>
+            </div>
+
+            <!-- Quick Add Workout -->
+            <div class="card">
+                <h3><i class="fas fa-plus-circle"></i> Adaugă Workout Rapid</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Nume Exercițiu</label>
+                        <input type="text" id="workout-name" placeholder="Ex: Bench Press">
+                    </div>
+                    <div class="form-group">
+                        <label>Calorii Arse</label>
+                        <input type="number" id="calories" placeholder="Ex: 150">
+                    </div>
+                </div>
+                <button onclick="addWorkout()">
+                    <i class="fas fa-fire"></i> Adaugă Workout
+                </button>
+            </div>
+
+            <!-- Advanced Calorie Calculator -->
+            <div class="card" style="grid-column: 1 / -1;">
+                <h3><i class="fas fa-calculator"></i> Calculator Calorii Avansat</h3>
+                
+                <div class="calc-tabs">
+                    <div class="calc-tab active" onclick="switchCalc('strength')">
+                        <i class="fas fa-dumbbell"></i> Forță/Greutăți
+                    </div>
+                    <div class="calc-tab" onclick="switchCalc('running')">
+                        <i class="fas fa-running"></i> Alergat
+                    </div>
+                    <div class="calc-tab" onclick="switchCalc('bodyweight')">
+                        <i class="fas fa-child"></i> Calisthenics
+                    </div>
+                </div>
+
+                <!-- Strength Calculator -->
+                <div id="calc-strength" class="calc-panel active">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Tip Exercițiu</label>
+                            <select id="exercise-type">
+                                <option value="bench">Bench Press</option>
+                                <option value="squat">Squat</option>
+                                <option value="deadlift">Deadlift</option>
+                                <option value="overhead">Overhead Press</option>
+                                <option value="row">Barbell Row</option>
+                                <option value="curl">Bicep Curl</option>
+                                <option value="extension">Tricep Extension</option>
+                                <option value="lunge">Lunge</option>
+                                <option value="other">Altul</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Greutate (kg)</label>
+                            <input type="number" id="lift-weight" placeholder="Ex: 60" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Seturi</label>
+                            <input type="number" id="sets" placeholder="Ex: 3" min="1" value="3">
+                        </div>
+                        <div class="form-group">
+                            <label>Repetări/Set</label>
+                            <input type="number" id="reps" placeholder="Ex: 10" min="1" value="10">
+                        </div>
+                        <div class="form-group">
+                            <label>Greutatea Ta (kg)</label>
+                            <input type="number" id="body-weight" placeholder="Ex: 75" min="30">
+                        </div>
+                        <div class="form-group">
+                            <label>Durată (minute)</label>
+                            <input type="number" id="duration" placeholder="Ex: 15" min="1" value="15">
+                        </div>
+                    </div>
+                    <button onclick="calculateStrengthCalories()">
+                        <i class="fas fa-fire"></i> Calculează Calorii
+                    </button>
+                </div>
+
+                <!-- Running Calculator -->
+                <div id="calc-running" class="calc-panel">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Distanță (km)</label>
+                            <input type="number" id="run-distance" placeholder="Ex: 5" step="0.1" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Timp (minute)</label>
+                            <input type="number" id="run-time" placeholder="Ex: 30" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label>Greutatea Ta (kg)</label>
+                            <input type="number" id="run-weight" placeholder="Ex: 75" min="30">
+                        </div>
+                        <div class="form-group">
+                            <label>Tip Teren</label>
+                            <select id="terrain">
+                                <option value="flat">Teren Plat</option>
+                                <option value="hills">Dealuri/Urcări</option>
+                                <option value="trail">Trail/Natura</option>
+                                <option value="treadmill">Banda de Alergat</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button onclick="calculateRunningCalories()">
+                        <i class="fas fa-fire"></i> Calculează Calorii
+                    </button>
+                </div>
+
+                <!-- Bodyweight Calculator -->
+                <div id="calc-bodyweight" class="calc-panel">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Tip Exercițiu</label>
+                            <select id="bw-exercise">
+                                <option value="pushups">Flotări (Push-ups)</option>
+                                <option value="pullups">Tracțiuni (Pull-ups)</option>
+                                <option value="squats">Genuflexiuni</option>
+                                <option value="burpees">Burpees</option>
+                                <option value="plank">Plank</option>
+                                <option value="mountain">Mountain Climbers</option>
+                                <option value="jumping">Jumping Jacks</option>
+                                <option value="dips">Dips</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Seturi</label>
+                            <input type="number" id="bw-sets" placeholder="Ex: 3" min="1" value="3">
+                        </div>
+                        <div class="form-group">
+                            <label>Repetări/Set (sau secunde pentru plank)</label>
+                            <input type="number" id="bw-reps" placeholder="Ex: 15" min="1" value="15">
+                        </div>
+                        <div class="form-group">
+                            <label>Greutatea Ta (kg)</label>
+                            <input type="number" id="bw-weight" placeholder="Ex: 75" min="30">
+                        </div>
+                        <div class="form-group">
+                            <label>Intensitate</label>
+                            <select id="bw-intensity">
+                                <option value="low">Ușoară</option>
+                                <option value="moderate" selected>Moderată</option>
+                                <option value="high">Intensă</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button onclick="calculateBodyweightCalories()">
+                        <i class="fas fa-fire"></i> Calculează Calorii
+                    </button>
+                </div>
+
+                <div id="calorie-result" class="calorie-result">
+                    <div class="calorie-number" id="calories-burned">0</div>
+                    <p style="color: #ffd700; margin-top: 10px;">kcal arse</p>
+                    <p id="calc-details" style="color: #aaa; font-size: 14px; margin-top: 10px;"></p>
+                    <button onclick="addCalculatedWorkout()" style="margin-top: 15px;">
+                        <i class="fas fa-plus"></i> Adaugă la Workout-uri
+                    </button>
+                </div>
+            </div>
+
+            <!-- Today's Workouts -->
+            <div class="card">
+                <h3><i class="fas fa-list"></i> Workout-uri Azi</h3>
+                <ul id="workout-list"></ul>
+                <p id="no-workouts" style="text-align: center; color: #666; padding: 20px;">Niciun workout adăugat astăzi. Let's go champ! 💪</p>
+            </div>
+
+            <!-- Global Leaderboard -->
+            <div class="card" style="grid-column: 1 / -1;">
+                <h3><i class="fas fa-globe"></i> Clasament Global - Toți Utilizatorii</h3>
+                <div class="leaderboard-filters">
+                    <button class="filter-btn active" onclick="filterLeaderboard('all')">Toți</button>
+                    <button class="filter-btn" onclick="filterLeaderboard('king')">👑 Kings</button>
+                    <button class="filter-btn" onclick="filterLeaderboard('queen')">👸 Queens</button>
+                </div>
+                <div id="leaderboard"></div>
+                <div id="leaderboard-stats" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,0,0,0.2); text-align: center; color: #888;">
+                </div>
+            </div>
+
+            <!-- Chart -->
+            <div class="card" style="grid-column: 1 / -1;">
+                <h3><i class="fas fa-chart-line"></i> Ultimele 7 Zile - Calorii</h3>
+                <div class="chart-container">
+                    <canvas id="chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Level Up Overlay -->
+    <div id="level-up-overlay">
+        <div class="level-up-text">🔥 LEVEL UP! 🔥</div>
+        <div class="level-up-subtext" id="new-level-text">Level 2 Unlocked!</div>
+        <button onclick="closeLevelUp()" style="margin-top: 30px; padding: 15px 40px;">Continuă</button>
+    </div>
+
+    <script>
+        let currentUser = null;
+        let chart;
+        let lastCalculatedCalories = 0;
+        let lastWorkoutName = '';
+        let currentFilter = 'all';
+
+        // Exercise MET values based on Compendium of Physical Activities
+        const exerciseMETs = {
+            bench: 3.5,
+            squat: 5.0,
+            deadlift: 6.0,
+            overhead: 3.5,
+            row: 3.5,
+            curl: 2.5,
+            extension: 2.5,
+            lunge: 4.0,
+            other: 3.0
+        };
+
+        const bodyweightMETs = {
+            pushups: { low: 3.0, moderate: 4.0, high: 5.0 },
+            pullups: { low: 4.0, moderate: 5.0, high: 6.0 },
+            squats: { low: 3.0, moderate: 4.0, high: 5.0 },
+            burpees: { low: 6.0, moderate: 8.0, high: 10.0 },
+            plank: { low: 2.0, moderate: 3.0, high: 4.0 },
+            mountain: { low: 5.0, moderate: 7.0, high: 9.0 },
+            jumping: { low: 4.0, moderate: 6.0, high: 8.0 },
+            dips: { low: 3.5, moderate: 4.5, high: 5.5 }
+        };
+
+        // Quotes
+        const quotes = [
+            "You don't get what you wish for. You get what you work for.",
+            "Pain is weakness leaving the body.",
+            "Be obsessed or be average.",
+            "Nobody cares. Work harder.",
+            "Discipline is choosing what you want most over what you want now.",
+            "Built from pain. Powered by discipline.",
+            "You vs You. Every single day.",
+            "Winners train. Losers complain.",
+            "Sweat is just fat crying.",
+            "The only bad workout is the one that didn't happen."
+        ];
+
+        // Badges system
+        const badges = [
+            { id: "first", name: "Primul Pas 🔥", condition: (u) => Object.keys(u.workouts || {}).length >= 1 },
+            { id: "warrior", name: "Warrior ⚔️", condition: (u) => (u.xp || 0) >= 500 },
+            { id: "level5", name: "Level 5 Master 🏆", condition: (u) => (u.level || 1) >= 5 },
+            { id: "cal1000", name: "1000 kcal Burned 🔥", condition: (u) => getTotalCalories(u) >= 1000 },
+            { id: "streak3", name: "3 Day Streak ⚡", condition: (u) => getStreak(u) >= 3 }
+        ];
+
+        function getTotalCalories(user) {
+            return Object.values(user.workouts || {}).flat().reduce((sum, w) => sum + (w.calories || 0), 0);
+        }
+
+        function getStreak(user) {
+            const dates = Object.keys(user.workouts || {}).sort();
+            if (dates.length === 0) return 0;
+            let streak = 1;
+            for (let i = dates.length - 1; i > 0; i--) {
+                const diff = (new Date(dates[i]) - new Date(dates[i-1])) / (1000 * 60 * 60 * 24);
+                if (diff === 1) streak++;
+                else break;
+            }
+            return streak;
+        }
+
+        // Calculator Functions
+        function switchCalc(type) {
+            document.querySelectorAll('.calc-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.calc-panel').forEach(p => p.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById('calc-' + type).classList.add('active');
+            document.getElementById('calorie-result').classList.remove('show');
+        }
+
+        function calculateStrengthCalories() {
+            const exercise = document.getElementById('exercise-type').value;
+            const weight = parseFloat(document.getElementById('lift-weight').value) || 0;
+            const sets = parseInt(document.getElementById('sets').value) || 3;
+            const reps = parseInt(document.getElementById('reps').value) || 10;
+            const bodyWeight = parseFloat(document.getElementById('body-weight').value) || 75;
+            const duration = parseInt(document.getElementById('duration').value) || 15;
+
+            const met = exerciseMETs[exercise] || 3.0;
+            const volume = sets * reps * (1 + weight / 100);
+            const intensityMultiplier = 1 + (volume / 100);
+            
+            const baseCalories = (met * 3.5 * bodyWeight / 200) * duration;
+            const totalCalories = Math.round(baseCalories * intensityMultiplier);
+
+            lastCalculatedCalories = totalCalories;
+            lastWorkoutName = `${exercise.charAt(0).toUpperCase() + exercise.slice(1)} ${sets}x${reps} @ ${weight}kg`;
+
+            displayCalorieResult(totalCalories, `Durată: ${duration}min | Volum: ${sets}x${reps} | MET: ${met}`);
+        }
+
+        function calculateRunningCalories() {
+            const distance = parseFloat(document.getElementById('run-distance').value) || 0;
+            const time = parseInt(document.getElementById('run-time').value) || 0;
+            const weight = parseFloat(document.getElementById('run-weight').value) || 75;
+            const terrain = document.getElementById('terrain').value;
+
+            if (distance <= 0 || time <= 0) {
+                alert('Completează distanța și timpul!');
+                return;
+            }
+
+            const pace = time / distance;
+            let met = 6.0;
+            
+            if (pace < 5) met = 12.5;
+            else if (pace < 6) met = 11.0;
+            else if (pace < 7) met = 9.8;
+            else if (pace < 8) met = 8.3;
+            else if (pace < 10) met = 6.0;
+            else met = 4.0;
+
+            const terrainMult = {
+                flat: 1.0,
+                hills: 1.15,
+                trail: 1.25,
+                treadmill: 0.95
+            };
+
+            const calories = Math.round(met * 3.5 * weight / 200 * time * terrainMult[terrain]);
+            
+            lastCalculatedCalories = calories;
+            lastWorkoutName = `Alergat ${distance}km în ${time}min (${terrain})`;
+
+            displayCalorieResult(calories, `Viteză: ${(60/pace).toFixed(1)} km/h | MET: ${met} | Teren: ${terrain}`);
+        }
+
+        function calculateBodyweightCalories() {
+            const exercise = document.getElementById('bw-exercise').value;
+            const sets = parseInt(document.getElementById('bw-sets').value) || 3;
+            const reps = parseInt(document.getElementById('bw-reps').value) || 15;
+            const weight = parseFloat(document.getElementById('bw-weight').value) || 75;
+            const intensity = document.getElementById('bw-intensity').value;
+
+            const met = bodyweightMETs[exercise][intensity];
+            const duration = (sets * reps * 3) / 60;
+            const calories = Math.round(met * 3.5 * weight / 200 * (duration * 60));
+
+            lastCalculatedCalories = calories;
+            lastWorkoutName = `${exercise.charAt(0).toUpperCase() + exercise.slice(1)} ${sets}x${reps} (${intensity})`;
+
+            displayCalorieResult(calories, `Seturi: ${sets}x${reps} | Intensitate: ${intensity} | MET: ${met}`);
+        }
+
+        function displayCalorieResult(calories, details) {
+            document.getElementById('calories-burned').textContent = calories;
+            document.getElementById('calc-details').textContent = details;
+            document.getElementById('calorie-result').classList.add('show');
+        }
+
+        function addCalculatedWorkout() {
+            if (lastCalculatedCalories === 0) return;
+            
+            document.getElementById('workout-name').value = lastWorkoutName;
+            document.getElementById('calories').value = lastCalculatedCalories;
+            addWorkout();
+            
+            document.getElementById('calorie-result').classList.remove('show');
+        }
+
+        // Auth Functions
+        function register() {
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value;
+            const role = document.getElementById("role").value;
+            
+            if (!username || !password) {
+                document.getElementById("auth-msg").textContent = "Completează toate câmpurile!";
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem("users")) || {};
+            if (users[username]) {
+                document.getElementById("auth-msg").textContent = "User existent!";
+                return;
+            }
+
+            users[username] = {
+                password,
+                xp: 0,
+                level: 1,
+                role,
+                workouts: {},
+                badges: [],
+                joined: new Date().toISOString()
+            };
+
+            localStorage.setItem("users", JSON.stringify(users));
+            document.getElementById("auth-msg").style.color = "#4CAF50";
+            document.getElementById("auth-msg").textContent = "Înregistrare reușită! Acum loghează-te.";
+        }
+
+        function login() {
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value;
+            
+            const users = JSON.parse(localStorage.getItem("users")) || {};
+            
+            if (!users[username] || users[username].password !== password) {
+                document.getElementById("auth-msg").style.color = "#ff4d4d";
+                document.getElementById("auth-msg").textContent = "Date incorecte!";
+                return;
+            }
+
+            currentUser = username;
+            localStorage.setItem("currentUser", username);
+            
+            document.getElementById("auth").style.display = "none";
+            document.getElementById("app").style.display = "block";
+            document.getElementById("main-nav").style.display = "flex";
+            
+            const userData = users[username];
+            
+            if (userData.role === "king") {
+                document.body.classList.add("king-glow");
+            } else {
+                document.body.classList.add("queen-glow");
+            }
+
+            document.getElementById("welcome").innerHTML = `Welcome ${username} ${userData.role === 'king' ? '👑 KING' : '👑 QUEEN'}`;
+            showQuote();
+            loadUserData();
+        }
+
+        function logout() {
+            localStorage.removeItem("currentUser");
+            location.reload();
+        }
+
+        function showQuote() {
+            const random = Math.floor(Math.random() * quotes.length);
+            document.getElementById("quote").textContent = `"${quotes[random]}"`;
+        }
+
+        // Workout Functions
+        function addWorkout() {
+            const name = document.getElementById("workout-name").value.trim();
+            const calories = parseInt(document.getElementById("calories").value);
+            
+            if (!name || !calories || calories <= 0) {
+                alert("Completează corect câmpurile!");
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem("users"));
+            const today = new Date().toISOString().split("T")[0];
+            
+            if (!users[currentUser].workouts[today]) {
+                users[currentUser].workouts[today] = [];
+            }
+            
+            users[currentUser].workouts[today].push({ name, calories, time: new Date().toISOString() });
+            
+            const xpGain = Math.floor(calories / 5);
+            users[currentUser].xp += xpGain;
+            
+            const xpNeeded = users[currentUser].level * 100;
+            if (users[currentUser].xp >= xpNeeded) {
+                users[currentUser].xp -= xpNeeded;
+                users[currentUser].level++;
+                showLevelUp(users[currentUser].level);
+            }
+            
+            checkBadges(users[currentUser]);
+            
+            localStorage.setItem("users", JSON.stringify(users));
+            
+            document.getElementById("workout-name").value = "";
+            document.getElementById("calories").value = "";
+            
+            loadUserData();
+        }
+
+        function checkBadges(user) {
+            if (!user.badges) user.badges = [];
+            
+            badges.forEach(badge => {
+                if (!user.badges.includes(badge.id) && badge.condition(user)) {
+                    user.badges.push(badge.id);
+                    showBadgeNotification(badge.name);
+                }
+            });
+        }
+
+        function showBadgeNotification(badgeName) {
+            const notif = document.createElement("div");
+            notif.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: linear-gradient(135deg, #ffd700, #ff6600);
+                color: black;
+                padding: 20px;
+                border-radius: 15px;
+                font-weight: bold;
+                z-index: 10001;
+                animation: slideInRight 0.5s;
+                box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
+            `;
+            notif.innerHTML = `🏆 Badge Unlocked!<br>${badgeName}`;
+            document.body.appendChild(notif);
+            
+            setTimeout(() => {
+                notif.style.animation = "slideOutRight 0.5s";
+                setTimeout(() => notif.remove(), 500);
+            }, 3000);
+        }
+
+        function showLevelUp(newLevel) {
+            document.getElementById("new-level-text").textContent = `Level ${newLevel} Unlocked!`;
+            document.getElementById("level-up-overlay").style.display = "flex";
+            
+            if (typeof confetti !== 'undefined') {
+                confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#ff0000', '#ff6600', '#ffd700']
+                });
+            }
+        }
+
+        function closeLevelUp() {
+            document.getElementById("level-up-overlay").style.display = "none";
+        }
+
+        function loadUserData() {
+            const users = JSON.parse(localStorage.getItem("users"));
+            const user = users[currentUser];
+            
+            document.getElementById("level").textContent = user.level;
+            document.getElementById("xp").textContent = user.xp;
+            document.getElementById("xp-needed").textContent = user.level * 100;
+            const percent = (user.xp / (user.level * 100)) * 100;
+            document.getElementById("progress").style.width = percent + "%";
+            
+            const badgeContainer = document.getElementById("user-badges");
+            badgeContainer.innerHTML = "";
+            if (user.badges) {
+                user.badges.forEach(badgeId => {
+                    const badge = badges.find(b => b.id === badgeId);
+                    if (badge) {
+                        const span = document.createElement("span");
+                        span.className = "badge";
+                        span.textContent = badge.name;
+                        badgeContainer.appendChild(span);
+                    }
+                });
+            }
+            
+            const list = document.getElementById("workout-list");
+            list.innerHTML = "";
+            const today = new Date().toISOString().split("T")[0];
+            const workouts = user.workouts[today] || [];
+            
+            if (workouts.length === 0) {
+                document.getElementById("no-workouts").style.display = "block";
+            } else {
+                document.getElementById("no-workouts").style.display = "none";
+                workouts.forEach(w => {
+                    const li = document.createElement("li");
+                    li.innerHTML = `
+                        <span>${w.name}</span>
+                        <span class="workout-calories">${w.calories} kcal 🔥</span>
+                    `;
+                    list.appendChild(li);
+                });
+            }
+            
+            renderChart(user);
+            renderLeaderboard('all');
+        }
+
+        function renderChart(user) {
+            const ctx = document.getElementById("chart").getContext("2d");
+            const last7 = [];
+            const labels = [];
+            
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                const key = date.toISOString().split("T")[0];
+                labels.push(key.slice(5));
+                
+                const workouts = user.workouts[key] || [];
+                const total = workouts.reduce((sum, w) => sum + w.calories, 0);
+                last7.push(total);
+            }
+            
+            if (chart) chart.destroy();
+            
+            chart = new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels,
+                    datasets: [{
+                        label: "Calorii Arse",
+                        data: last7,
+                        borderColor: "#ff1a1a",
+                        backgroundColor: "rgba(255, 26, 26, 0.1)",
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: "#ff1a1a",
+                        pointBorderColor: "#fff",
+                        pointBorderWidth: 2,
+                        pointRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: "rgba(255, 255, 255, 0.1)" },
+                            ticks: { color: "#aaa" }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: "#aaa" }
+                        }
+                    }
+                }
+            });
+        }
+
+        function filterLeaderboard(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            renderLeaderboard(filter);
+        }
+
+        function renderLeaderboard(filter = 'all') {
+            const users = JSON.parse(localStorage.getItem("users")) || {};
+            const leaderboardDiv = document.getElementById("leaderboard");
+            const statsDiv = document.getElementById("leaderboard-stats");
+            
+            let userEntries = Object.entries(users);
+            
+            if (filter !== 'all') {
+                userEntries = userEntries.filter(([_, data]) => data.role === filter);
+            }
+            
+            const sortedUsers = userEntries.sort((a, b) => {
+                const scoreA = (a[1].level || 1) * 1000 + (a[1].xp || 0);
+                const scoreB = (b[1].level || 1) * 1000 + (b[1].xp || 0);
+                return scoreB - scoreA;
+            });
+
+            leaderboardDiv.innerHTML = "";
+            
+            if (sortedUsers.length === 0) {
+                leaderboardDiv.innerHTML = '<p style="text-align: center; color: #666;">Niciun utilizator în această categorie.</p>';
+                statsDiv.innerHTML = "";
+                return;
+            }
+            
+            sortedUsers.forEach((user, index) => {
+                const div = document.createElement("div");
+                div.className = "leaderboard-item";
+                if (index === 0) div.classList.add("rank-1");
+                if (index === 1) div.classList.add("rank-2");
+                if (index === 2) div.classList.add("rank-3");
+                
+                const rankIcon = index === 0 ? "👑" : index === 1 ? "🥈" : index === 2 ? "🥉" : `#${index + 1}`;
+                const totalWorkouts = Object.values(user[1].workouts || {}).flat().length;
+                const totalCalories = getTotalCalories(user[1]);
+                
+                div.innerHTML = `
+                    <div style="display: flex; align-items: center; flex: 1;">
+                        <span class="rank-badge">${rankIcon}</span>
+                        <div>
+                            <div style="font-weight: bold;">${user[0]} ${user[1].role === 'king' ? '👑' : '👸'}</div>
+                            <div class="user-stats">
+                                <span><i class="fas fa-fire"></i> ${totalCalories} kcal</span>
+                                <span><i class="fas fa-dumbbell"></i> ${totalWorkouts} workout-uri</span>
+                                <span><i class="fas fa-calendar"></i> ${Object.keys(user[1].workouts || {}).length} zile active</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-weight: bold; color: #ff1a1a; font-size: 20px;">Level ${user[1].level || 1}</div>
+                        <div style="font-size: 12px; color: #888;">${user[1].xp || 0} XP</div>
+                    </div>
+                `;
+                leaderboardDiv.appendChild(div);
+            });
+
+            const totalUsers = Object.keys(users).length;
+            const totalKings = Object.values(users).filter(u => u.role === 'king').length;
+            const totalQueens = Object.values(users).filter(u => u.role === 'queen').length;
+            const allCalories = Object.values(users).reduce((sum, u) => sum + getTotalCalories(u), 0);
+            
+            statsDiv.innerHTML = `
+                <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
+                    <div><strong style="color: #ff1a1a;">${totalUsers}</strong> utilizatori înregistrați</div>
+                    <div><strong style="color: #ff1a1a;">${totalKings}</strong> 👑 Kings</div>
+                    <div><strong style="color: #ff1a1a;">${totalQueens}</strong> 👸 Queens</div>
+                    <div><strong style="color: #ff1a1a;">${allCalories.toLocaleString()}</strong> kcal arse în total</div>
+                </div>
+            `;
+        }
+
+        window.onload = function() {
+            const savedUser = localStorage.getItem("currentUser");
+            if (savedUser) {
+                const users = JSON.parse(localStorage.getItem("users")) || {};
+                if (users[savedUser]) {
+                    document.getElementById("username").value = savedUser;
+                    login();
+                }
+            }
+        };
+    </script>
+</body>
+</html>'''
+
